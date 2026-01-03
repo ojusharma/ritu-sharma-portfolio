@@ -27,8 +27,8 @@ export const SITE_CONFIG = {
 };
 
 export const CONTACT_INFO = {
-  phone: "+91 98XXX XXXXX", // Replace with actual phone
-  whatsapp: "+919800000000", // Replace with actual WhatsApp number (no spaces or symbols)
+  phone: "+91 99872 05388",
+  whatsapp: "919987205388",
   email: "ritu@example.com", // Replace with actual email
   city: "Mumbai",
   address: "Mumbai, Maharashtra, India", // Full address placeholder
