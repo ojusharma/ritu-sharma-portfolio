@@ -6,57 +6,57 @@
  */
 
 export const FAQ_CONTENT = {
-  sectionTitle: "Frequently Asked Questions",
-  sectionSubtitle: "Got questions? I've got answers",
+  sectionTitle: "Got Questions?",
+  sectionSubtitle: "Here's everything you need to know",
   
   faqs: [
     {
       id: 1,
       question: "Do you provide online consultations?",
       answer:
-        "Yes! I offer both in-person consultations in Mumbai and online consultations via video call for clients across India and abroad. The online experience is just as comprehensive as in-person sessions.",
+        "Absolutely! Whether you're in Mumbai or anywhere in the world, we can connect via video call. Most of my clients prefer online sessions. They're just as effective and way more convenient.",
     },
     {
       id: 2,
       question: "Will I have to give up my favorite foods?",
       answer:
-        "Absolutely not! My philosophy is 'Choose Strong over Skinny.' I believe in sustainable nutrition that includes your favorite foods in moderation. No food is completely off-limits—it's all about balance and making informed choices.",
+        "Never! That's exactly why most diets fail. My approach is different. I'll show you how to enjoy your favorite foods AND reach your goals. It's about balance, not deprivation.",
     },
     {
       id: 3,
-      question: "How soon can I expect to see results?",
+      question: "How soon will I see results?",
       answer:
-        "Results vary based on individual goals and commitment. Most clients notice improvements in energy levels within the first 2 weeks. Visible changes in weight and body composition typically appear within 4-6 weeks of following the plan consistently.",
+        "Most clients feel more energetic within the first 2 weeks. Visible changes in weight and how your clothes fit? Usually 4-6 weeks. But here's the best part: these results actually stick.",
     },
     {
       id: 4,
-      question: "Do you work with specific health conditions?",
+      question: "I have PCOS/diabetes/thyroid issues. Can you help?",
       answer:
-        "Yes, I specialize in nutrition for various health conditions including diabetes, PCOS, thyroid disorders, digestive issues, and cardiovascular health. I work closely with your healthcare provider to ensure coordinated care.",
+        "Yes! I specialize in nutrition for health conditions like PCOS, diabetes, thyroid disorders, and digestive issues. Many of my most successful transformations have been clients managing these conditions.",
     },
     {
       id: 5,
-      question: "What happens in the first consultation?",
+      question: "What if the meal plan doesn't work for me?",
       answer:
-        "The initial consultation is a comprehensive 60-minute session where we discuss your health history, current eating habits, lifestyle, goals, and any health concerns. I may also conduct a body composition analysis. Based on this, I create your personalized nutrition plan.",
+        "That's why we have check-ins every 15 days! Your plan isn't set in stone. We adjust it based on your progress, preferences, and lifestyle. This is YOUR plan, and it evolves with you.",
     },
     {
       id: 6,
-      question: "How do follow-up sessions work?",
+      question: "Why should I pay ₹1,200 for a consultation first?",
       answer:
-        "Follow-up sessions are typically 30 minutes and can be done via phone or video call. We review your progress, address any challenges, and modify your diet plan as needed. For package clients, these are scheduled weekly or bi-weekly.",
+        "Think of it as a test drive. You get to see my approach, ask all your questions, and decide if this is right for you, with zero pressure. Plus, if you continue with the meal plan, this amount gets fully credited!",
     },
     {
       id: 7,
-      question: "Do you provide meal plans and recipes?",
+      question: "I've tried everything and nothing works. Why will this be different?",
       answer:
-        "Yes! Every client receives a detailed meal plan tailored to their preferences, cooking skills, and schedule. I also provide easy-to-follow recipes and can accommodate dietary restrictions, allergies, and regional food preferences.",
+        "Because I don't give you another diet. I give you a different lens. We'll uncover WHY previous attempts didn't stick and build habits that actually fit YOUR life. This isn't about willpower; it's about strategy.",
     },
     {
       id: 8,
-      question: "What is your cancellation policy?",
+      question: "How do I get started?",
       answer:
-        "I request at least 24 hours notice for cancellations or rescheduling. Appointments cancelled within 24 hours may be charged a cancellation fee. I understand emergencies happen, so please reach out if you need flexibility.",
+        "Super simple! Just tap the WhatsApp button and say hi. We'll find a time that works for you, and you'll be on your way to feeling amazing. Most people wish they'd started sooner!",
     },
   ],
 };
