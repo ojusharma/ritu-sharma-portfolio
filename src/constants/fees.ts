@@ -2,12 +2,11 @@
  * ==============================================
  * FEES & SERVICES
  * ==============================================
- * Edit this file to update pricing and services
  */
 
 export const FEES_CONTENT = {
-  sectionTitle: "Services & Fees",
-  sectionSubtitle: "Investment in your health",
+  sectionTitle: "Simple, Transparent Pricing",
+  sectionSubtitle: "No hidden fees. No long-term commitments. Just results.",
   
   // Currency symbol
   currency: "₹",
@@ -15,64 +14,36 @@ export const FEES_CONTENT = {
   services: [
     {
       id: 1,
-      name: "Initial Consultation",
-      price: "X,XXX",
-      duration: "60 minutes",
-      description: "Comprehensive health assessment, body composition analysis, and personalized diet plan.",
+      name: "Discovery Call",
+      price: "1,200",
+      duration: "One-time session",
+      description: "Not sure where to start? Let's talk about your goals and see if we're the right fit.",
       features: [
-        "Detailed health history review",
-        "Body composition analysis",
-        "Customized meal plan",
-        "Lifestyle recommendations",
+        "Understand your health goals",
+        "Review your current eating habits",
+        "Get personalized recommendations",
+        "Zero pressure, 100% clarity",
       ],
       popular: false,
     },
     {
       id: 2,
-      name: "Monthly Package",
-      price: "X,XXX",
-      duration: "4 weeks",
-      description: "Complete monthly program with weekly follow-ups and diet adjustments.",
+      name: "Complete Transformation",
+      price: "10,000",
+      duration: "3 months of support",
+      description: "Everything you need to finally see lasting results. Your consultation fee gets credited!",
       features: [
-        "Initial consultation included",
-        "Weekly follow-up calls",
-        "Diet plan modifications",
-        "WhatsApp support",
-        "Progress tracking",
+        "Consultation fee (₹1,200) refunded",
+        "Fully personalized meal plan",
+        "Check-ins every 15 days",
+        "Direct call access (12 PM - 8 PM)",
+        "Unlimited diet adjustments",
+        "WhatsApp support for quick queries",
       ],
       popular: true, // Highlighted as recommended
-    },
-    {
-      id: 3,
-      name: "3-Month Transformation",
-      price: "XX,XXX",
-      duration: "12 weeks",
-      description: "Intensive program for significant health transformation with continuous support.",
-      features: [
-        "Everything in Monthly Package",
-        "Bi-weekly video consultations",
-        "Recipe suggestions",
-        "Grocery shopping guide",
-        "Priority support",
-        "Progress reports",
-      ],
-      popular: false,
-    },
-    {
-      id: 4,
-      name: "Follow-up Session",
-      price: "XXX",
-      duration: "30 minutes",
-      description: "Quick check-in for existing clients to review progress and adjust plans.",
-      features: [
-        "Progress review",
-        "Diet modifications",
-        "Query resolution",
-      ],
-      popular: false,
     },
   ],
   
   // Note displayed below pricing
-  note: "All prices are inclusive of taxes. Payment plans available for long-term packages.",
+  note: "Already had a consultation? Your ₹1,200 gets deducted from the meal plan!",
 };

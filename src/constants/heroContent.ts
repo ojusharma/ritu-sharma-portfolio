@@ -10,19 +10,19 @@ export const HERO_CONTENT = {
   headline: "Think Fit with Ritu",
   
   // Tagline/subheadline
-  tagline: "Choose Strong over Skinny!",
+  tagline: "You don't need another diet, you need a different lens.",
   
   // Description paragraph
   description:
-    "Transform your relationship with food and achieve lasting health through personalized nutrition guidance. No crash diets, no restrictions—just sustainable habits for a stronger you.",
+    "Tired of diets that don't stick? I help you build a healthier relationship with food. No restrictions, no guilt. Just real results that last a lifetime.",
   
   // Call-to-action buttons
   primaryCTA: {
-    text: "Book Consultation",
+    text: "Start Your Transformation",
     link: "#contact",
   },
   secondaryCTA: {
-    text: "View Services",
+    text: "See How It Works",
     link: "#fees",
   },
   
