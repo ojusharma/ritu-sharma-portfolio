@@ -1,12 +1,4 @@
-import { GraduationCap, Award, BookOpen, BadgeCheck } from 'lucide-react';
 import { CERTIFICATIONS_CONTENT } from '../../constants';
-
-const iconMap = {
-  graduation: GraduationCap,
-  award: Award,
-  certificate: BadgeCheck,
-  book: BookOpen,
-};
 
 export default function Certifications() {
   return (
@@ -25,27 +17,18 @@ export default function Certifications() {
         {/* Certifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {CERTIFICATIONS_CONTENT.certifications.map((cert) => {
-            const IconComponent = iconMap[cert.icon as keyof typeof iconMap] || Award;
-            
             return (
               <div
                 key={cert.id}
                 className="group relative bg-gradient-to-br from-cream/30 to-white p-6 sm:p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
               >
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                  <IconComponent size={28} />
-                </div>
-
                 {/* Content */}
-                <h3 className="mt-5 text-xl font-bold text-primary-dark">
+                <h3 className="text-xl font-bold text-primary-dark">
                   {cert.title}
                 </h3>
-                <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-gray-500">
-                  <span>{cert.institution}</span>
-                  <span className="w-1 h-1 rounded-full bg-gray-300" />
-                  <span>{cert.year}</span>
-                </div>
+                <p className="mt-2 text-base font-semibold text-primary">
+                  {cert.institution}
+                </p>
                 <p className="mt-3 text-gray-600 leading-relaxed">
                   {cert.description}
                 </p>
