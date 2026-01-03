@@ -6,20 +6,20 @@
  */
 
 export const CONTACT_CONTENT = {
-  sectionTitle: "Get In Touch",
-  sectionSubtitle: "Start your health journey today",
+  sectionTitle: "Ready to Feel Your Best?",
+  sectionSubtitle: "Your transformation is just one message away",
   
   // Message displayed in contact section
   message:
-    "Ready to transform your health? Reach out to book a consultation or ask any questions. I'm here to help you on your journey to better nutrition and a healthier lifestyle.",
+    "Stop waiting for Monday. Stop waiting for the 'right time.' The best time to start is now, and I'm here to guide you every step of the way.",
   
   // Call-to-action text
-  ctaText: "Book Your Consultation",
+  ctaText: "Let's Talk on WhatsApp",
   
   // Availability info
   availability: {
-    days: "Monday - Saturday",
-    hours: "10:00 AM - 7:00 PM IST",
-    note: "Sunday consultations available on request",
+    days: "Available Every Day",
+    hours: "12:00 PM - 8:00 PM",
+    note: "I typically respond within a few hours",
   },
 };
