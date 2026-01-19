@@ -26,14 +26,14 @@ export const HERO_CONTENT = {
     link: "#fees",
   },
   
-  // Hero image (placeholder)
-  image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80",
-  imageAlt: "Healthy food and nutrition",
+  // Hero image
+  image: "/ritu-sharma.jpeg",
+  imageAlt: "Ritu Sharma",
   
   // Statistics/highlights shown in hero
   highlights: [
-    { value: "500+", label: "Happy Clients" },
-    { value: "8+", label: "Years Experience" },
-    { value: "98%", label: "Success Rate" },
+    { value: "Certified", label: "Professional Nutritionist" },
+    { value: "1-on-1", label: "Personalized Plans" },
+    { value: "100%", label: "Dedicated to You" },
   ],
 };

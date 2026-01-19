@@ -32,7 +32,7 @@ export const FAQ_CONTENT = {
       id: 4,
       question: "I have PCOS/diabetes/thyroid issues. Can you help?",
       answer:
-        "Yes! I specialize in nutrition for health conditions like PCOS, diabetes, thyroid disorders, and digestive issues. Many of my most successful transformations have been clients managing these conditions.",
+        "Yes! I'm trained to help clients managing health conditions like PCOS, diabetes, thyroid disorders, and digestive issues. My approach focuses on sustainable nutrition strategies tailored to your specific needs.",
     },
     {
       id: 5,

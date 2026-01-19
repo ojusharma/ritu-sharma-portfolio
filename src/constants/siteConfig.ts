@@ -29,10 +29,10 @@ export const SITE_CONFIG = {
 export const CONTACT_INFO = {
   phone: "+91 99872 05388",
   whatsapp: "919987205388",
-  email: "ritu@example.com", // Replace with actual email
+  email: "ritugov49@gmail.com",
   city: "Mumbai",
   address: "Mumbai, Maharashtra, India", // Full address placeholder
-  instagram: "https://instagram.com/ritusharma", // Replace with actual Instagram
+  instagram: "https://instagram.com/thinkfit.india",
   facebook: "", // Add Facebook URL if needed
   linkedin: "", // Add LinkedIn URL if needed
   
