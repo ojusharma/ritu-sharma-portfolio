@@ -20,7 +20,7 @@ export default function Fees() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
           {FEES_CONTENT.services.map((service) => (
             <div
               key={service.id}
