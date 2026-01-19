@@ -14,7 +14,7 @@ export const FEES_CONTENT = {
   services: [
     {
       id: 1,
-      name: "Discovery Call",
+      name: "Consultation Call",
       price: "1,200",
       duration: "One-time session",
       description: "Not sure where to start? Let's talk about your goals and see if we're the right fit.",
@@ -45,5 +45,5 @@ export const FEES_CONTENT = {
   ],
   
   // Note displayed below pricing
-  note: "Already had a consultation? Your ₹1,200 gets deducted from the meal plan!",
+  note: "*All prices are in INR and inclusive of taxes. Transfolmation results may vary based on individual commitment and adherence to the prescribed plan.",
 };
