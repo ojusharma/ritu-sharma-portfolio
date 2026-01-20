@@ -29,7 +29,7 @@ export const FEES_CONTENT = {
     {
       id: 2,
       name: "Complete Transformation",
-      price: "10,000",
+      price: "9,999",
       duration: "3 months of support",
       description: "Everything you need to finally see lasting results. Your consultation fee gets credited!",
       features: [
