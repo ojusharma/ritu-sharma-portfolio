@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { SITE_CONFIG } from '../constants';
+import { useContent } from '../context/ContentContext';
 
 export default function Navbar() {
+  const { siteConfig } = useContent();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -37,22 +38,22 @@ export default function Navbar() {
             onClick={() => scrollToSection('hero')}
             className="flex items-center gap-2"
           >
-            {SITE_CONFIG.logo ? (
+            {siteConfig.logo ? (
               <img
-                src={SITE_CONFIG.logo}
-                alt={SITE_CONFIG.name}
+                src={siteConfig.logo}
+                alt={siteConfig.name}
                 className="h-10 w-auto"
               />
             ) : (
               <span className="font-display text-xl md:text-2xl font-semibold text-white">
-                {SITE_CONFIG.name}
+                {siteConfig.name}
               </span>
             )}
           </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {SITE_CONFIG.navigation.map((item) => (
+            {siteConfig.navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
@@ -86,7 +87,7 @@ export default function Navbar() {
           }`}
         >
           <div className="flex flex-col gap-1 pt-2 bg-primary-dark/95 backdrop-blur-md rounded-xl px-2 mt-2">
-            {SITE_CONFIG.navigation.map((item) => (
+            {siteConfig.navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}

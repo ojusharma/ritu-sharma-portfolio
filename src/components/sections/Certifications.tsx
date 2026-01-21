@@ -1,22 +1,24 @@
-import { CERTIFICATIONS_CONTENT } from '../../constants';
+import { useContent } from '../../context/ContentContext';
 
 export default function Certifications() {
+  const { certificationsContent } = useContent();
+
   return (
     <section id="certifications" className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
-            {CERTIFICATIONS_CONTENT.sectionTitle}
+            {certificationsContent.sectionTitle}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            {CERTIFICATIONS_CONTENT.sectionSubtitle}
+            {certificationsContent.sectionSubtitle}
           </p>
         </div>
 
         {/* Certifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {CERTIFICATIONS_CONTENT.certifications.map((cert) => {
+          {certificationsContent.certifications.map((cert) => {
             return (
               <div
                 key={cert.id}

@@ -1,7 +1,8 @@
 import { Heart, Instagram, Mail, MapPin, Phone } from 'lucide-react';
-import { SITE_CONFIG, CONTACT_INFO } from '../constants';
+import { useContent } from '../context/ContentContext';
 
 export default function Footer() {
+  const { siteConfig, contactInfo } = useContent();
   const currentYear = new Date().getFullYear();
 
   const scrollToSection = (id: string) => {
@@ -18,7 +19,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="font-display text-2xl font-semibold">
-              {SITE_CONFIG.name}
+              {siteConfig.name}
             </h3>
             <p className="text-white/70 text-sm leading-relaxed">
               Certified Nutritionist helping you build a healthier relationship
@@ -30,7 +31,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Quick Links</h4>
             <div className="flex flex-col gap-2">
-              {SITE_CONFIG.navigation.map((item) => (
+              {siteConfig.navigation.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -47,26 +48,26 @@ export default function Footer() {
             <h4 className="font-semibold text-lg">Contact</h4>
             <div className="flex flex-col gap-3">
               <a
-                href={`tel:${CONTACT_INFO.phone}`}
+                href={`tel:${contactInfo.phone}`}
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-colors text-sm"
               >
                 <Phone size={16} />
-                {CONTACT_INFO.phone}
+                {contactInfo.phone}
               </a>
               <a
-                href={`mailto:${CONTACT_INFO.email}`}
+                href={`mailto:${contactInfo.email}`}
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-colors text-sm"
               >
                 <Mail size={16} />
-                {CONTACT_INFO.email}
+                {contactInfo.email}
               </a>
               <div className="flex items-center gap-3 text-white/70 text-sm">
                 <MapPin size={16} />
-                {CONTACT_INFO.city}
+                {contactInfo.city}
               </div>
-              {CONTACT_INFO.instagram && (
+              {contactInfo.instagram && (
                 <a
-                  href={CONTACT_INFO.instagram}
+                  href={contactInfo.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-white/70 hover:text-white transition-colors text-sm"
@@ -82,10 +83,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/50 text-sm text-center md:text-left">
-            © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+            © {currentYear} {siteConfig.name}. All rights reserved.
           </p>
           <p className="flex items-center gap-1 text-white/50 text-sm">
-            Made with <Heart size={14} className="text-red-400 fill-current" /> in {CONTACT_INFO.city}
+            Made with <Heart size={14} className="text-red-400 fill-current" /> in {contactInfo.city}
           </p>
         </div>
       </div>

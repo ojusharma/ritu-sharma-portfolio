@@ -1,9 +1,11 @@
 import { Check, Star } from 'lucide-react';
-import { FEES_CONTENT, CONTACT_INFO } from '../../constants';
+import { useContent } from '../../context/ContentContext';
 
 export default function Fees() {
-  const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(
-    CONTACT_INFO.whatsappMessage
+  const { feesContent, contactInfo } = useContent();
+
+  const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
+    contactInfo.whatsappMessage
   )}`;
 
   return (
@@ -12,16 +14,16 @@ export default function Fees() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-            {FEES_CONTENT.sectionTitle}
+            {feesContent.sectionTitle}
           </h2>
           <p className="mt-4 text-lg text-white/70">
-            {FEES_CONTENT.sectionSubtitle}
+            {feesContent.sectionSubtitle}
           </p>
         </div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto">
-          {FEES_CONTENT.services.map((service) => (
+          {feesContent.services.map((service) => (
             <div
               key={service.id}
               className={`relative flex flex-col p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 ${
@@ -49,7 +51,7 @@ export default function Fees() {
               {/* Price */}
               <div className="mt-4 mb-4">
                 <span className={`text-sm ${service.popular ? 'text-white/70' : 'text-gray-500'}`}>
-                  {FEES_CONTENT.currency}
+                  {feesContent.currency}
                 </span>
                 <span className="text-3xl sm:text-4xl font-bold ml-1">{service.price}</span>
               </div>
@@ -94,9 +96,9 @@ export default function Fees() {
         </div>
 
         {/* Note */}
-        {FEES_CONTENT.note && (
+        {feesContent.note && (
           <p className="text-center text-white/50 text-sm mt-10">
-            {FEES_CONTENT.note}
+            {feesContent.note}
           </p>
         )}
       </div>

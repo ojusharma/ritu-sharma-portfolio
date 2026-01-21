@@ -1,7 +1,9 @@
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { HERO_CONTENT } from '../../constants';
+import { useContent } from '../../context/ContentContext';
 
 export default function Hero() {
+  const { heroContent } = useContent();
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id.replace('#', ''));
     if (element) {
@@ -26,32 +28,32 @@ export default function Hero() {
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Main Headline */}
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-              {HERO_CONTENT.headline}
+              {heroContent.headline}
             </h1>
             
             {/* Tagline */}
             <p className="mt-4 text-xl sm:text-2xl md:text-3xl text-primary-light font-medium">
-              {HERO_CONTENT.tagline}
+              {heroContent.tagline}
             </p>
             
             {/* Description */}
             <p className="mt-6 text-white/70 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              {HERO_CONTENT.description}
+              {heroContent.description}
             </p>
 
             {/* CTA Buttons */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                <button
-                onClick={() => scrollToSection(HERO_CONTENT.secondaryCTA.link)}
+                onClick={() => scrollToSection(heroContent.secondaryCTA.link)}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/50 text-white rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
               >
-                {HERO_CONTENT.secondaryCTA.text}
+                {heroContent.secondaryCTA.text}
               </button>
               <button
-                onClick={() => scrollToSection(HERO_CONTENT.primaryCTA.link)}
+                onClick={() => scrollToSection(heroContent.primaryCTA.link)}
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-light text-white rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
               >
-                {HERO_CONTENT.primaryCTA.text}
+                {heroContent.primaryCTA.text}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
              
@@ -59,7 +61,7 @@ export default function Hero() {
 
             {/* Highlights/Stats */}
             <div className="mt-12 grid grid-cols-3 gap-4 sm:gap-8">
-              {HERO_CONTENT.highlights.map((highlight, index) => (
+              {heroContent.highlights.map((highlight, index) => (
                 <div key={index} className="text-center lg:text-left">
                   <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">
                     {highlight.value}
@@ -82,8 +84,8 @@ export default function Hero() {
               {/* Image container */}
               <div className="absolute inset-8 rounded-full overflow-hidden bg-primary/20">
                 <img
-                  src={HERO_CONTENT.image}
-                  alt={HERO_CONTENT.imageAlt}
+                  src={heroContent.image}
+                  alt={heroContent.imageAlt}
                   className="w-full h-full object-cover"
                 />
               </div>

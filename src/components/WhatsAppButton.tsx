@@ -1,10 +1,12 @@
-import { CONTACT_INFO, SITE_CONFIG } from '../constants';
+import { useContent } from '../context/ContentContext';
 
 export default function WhatsAppButton() {
-  if (!SITE_CONFIG.features.showWhatsAppButton) return null;
+  const { siteConfig, contactInfo } = useContent();
+  
+  if (!siteConfig.features.showWhatsAppButton) return null;
 
-  const whatsappUrl = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(
-    CONTACT_INFO.whatsappMessage
+  const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
+    contactInfo.whatsappMessage
   )}`;
 
   return (

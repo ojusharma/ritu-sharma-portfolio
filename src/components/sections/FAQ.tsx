@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { FAQ_CONTENT } from '../../constants';
+import { useContent } from '../../context/ContentContext';
 
 export default function FAQ() {
+  const { faqContent } = useContent();
   const [openId, setOpenId] = useState<number | null>(1);
 
   const toggleFaq = (id: number) => {
@@ -15,16 +16,16 @@ export default function FAQ() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
-            {FAQ_CONTENT.sectionTitle}
+            {faqContent.sectionTitle}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            {FAQ_CONTENT.sectionSubtitle}
+            {faqContent.sectionSubtitle}
           </p>
         </div>
 
         {/* FAQ Accordion */}
         <div className="space-y-4">
-          {FAQ_CONTENT.faqs.map((faq) => (
+          {faqContent.faqs.map((faq) => (
             <div
               key={faq.id}
               className="border border-gray-200 rounded-xl overflow-hidden hover:border-primary/30 transition-colors"

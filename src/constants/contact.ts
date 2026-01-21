@@ -7,6 +7,7 @@
 
 export const CONTACT_CONTENT = {
   sectionTitle: "Contact & Booking",
+  sectionSubtitle: "I'd love to hear from you",
   
   // Message displayed in contact section
   message:

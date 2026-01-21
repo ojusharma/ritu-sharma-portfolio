@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import { TESTIMONIALS_CONTENT, SITE_CONFIG } from '../../constants';
+import { useContent } from '../../context/ContentContext';
 
 export default function Testimonials() {
+  const { siteConfig, testimonialsContent } = useContent();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Don't render if testimonials are disabled
-  if (!SITE_CONFIG.features.showTestimonials) return null;
+  if (!siteConfig.features.showTestimonials) return null;
 
-  const testimonials = TESTIMONIALS_CONTENT.testimonials;
+  const testimonials = testimonialsContent.testimonials;
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -24,10 +25,10 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
-            {TESTIMONIALS_CONTENT.sectionTitle}
+            {testimonialsContent.sectionTitle}
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            {TESTIMONIALS_CONTENT.sectionSubtitle}
+            {testimonialsContent.sectionSubtitle}
           </p>
         </div>
 

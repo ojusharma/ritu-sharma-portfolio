@@ -1,36 +1,16 @@
-import {
-  Navbar,
-  Hero,
-  Certifications,
-  Fees,
-  Testimonials,
-  FAQ,
-  Contact,
-  Footer,
-  WhatsAppButton,
-} from './components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ContentProvider } from './context/ContentContext';
+import { HomePage, AdminPage } from './pages';
 
 export default function App() {
   return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <Navbar />
-
-      {/* Main Content */}
-      <main>
-        <Hero />
-        <Certifications />
-        <Fees />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Floating WhatsApp Button */}
-      <WhatsAppButton />
-    </div>
+    <ContentProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ContentProvider>
   );
 }
