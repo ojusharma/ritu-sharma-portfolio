@@ -2,11 +2,7 @@ import { Check, Star } from 'lucide-react';
 import { useContent } from '../../context/ContentContext';
 
 export default function Fees() {
-  const { feesContent, contactInfo } = useContent();
-
-  const whatsappUrl = `https://wa.me/${contactInfo.whatsapp}?text=${encodeURIComponent(
-    contactInfo.whatsappMessage
-  )}`;
+  const { feesContent } = useContent();
 
   return (
     <section id="fees" className="py-20 md:py-28 bg-gradient-to-b from-primary-dark to-[#252d24]">
