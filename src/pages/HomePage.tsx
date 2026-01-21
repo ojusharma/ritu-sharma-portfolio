@@ -22,8 +22,8 @@ export default function HomePage() {
         <Certifications />
         <Fees />
         <Testimonials />
-        <FAQ />
         <Contact />
+        <FAQ />
       </main>
 
       {/* Footer */}
