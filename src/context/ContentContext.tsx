@@ -175,8 +175,8 @@ export function ContentProvider({ children }: { children: ReactNode }) {
 
         setContent({
           siteConfig: SITE_CONFIG, // Always from constants file
+          heroContent: HERO_CONTENT, // Always from constants file
           contactInfo: (contentMap['contact_info'] as ContactInfo) || CONTACT_INFO,
-          heroContent: (contentMap['hero'] as HeroContent) || HERO_CONTENT,
           certificationsContent: (contentMap['certifications'] as CertificationsContent) || CERTIFICATIONS_CONTENT,
           feesContent: (contentMap['fees'] as FeesContent) || FEES_CONTENT,
           faqContent: (contentMap['faq'] as FAQContent) || FAQ_CONTENT,

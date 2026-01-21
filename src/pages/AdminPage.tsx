@@ -7,7 +7,6 @@ import { isSupabaseConfigured } from '../lib/supabase';
 
 // Import form components
 import {
-  HeroForm,
   ContactInfoForm,
   CertificationsForm,
   FeesForm,
@@ -18,7 +17,7 @@ import {
   DiscardChangesModal,
 } from '../components/admin';
 
-type SectionKey = 'hero' | 'contactInfo' | 'certifications' | 'fees' | 'faq' | 'contactContent' | 'testimonials';
+type SectionKey = 'contactInfo' | 'certifications' | 'fees' | 'faq' | 'contactContent' | 'testimonials';
 
 interface Section {
   key: SectionKey;
@@ -27,7 +26,6 @@ interface Section {
 }
 
 const sections: Section[] = [
-  { key: 'hero', title: 'Hero Section', dbKey: 'hero' },
   { key: 'contactInfo', title: 'Contact Information', dbKey: 'contact_info' },
   { key: 'certifications', title: 'Certifications', dbKey: 'certifications' },
   { key: 'fees', title: 'Plans & Fees', dbKey: 'fees' },
@@ -40,7 +38,6 @@ export default function AdminPage() {
   const { user, signOut } = useAuth();
   const {
     contactInfo,
-    heroContent,
     certificationsContent,
     feesContent,
     faqContent,
@@ -64,7 +61,6 @@ export default function AdminPage() {
   // Store original data when content loads or forms reset
   useEffect(() => {
     originalDataRef.current = {
-      hero: heroContent,
       contact_info: contactInfo,
       certifications: certificationsContent,
       fees: feesContent,
@@ -72,7 +68,7 @@ export default function AdminPage() {
       contact: contactContent,
       testimonials: testimonialsContent,
     };
-  }, [heroContent, contactInfo, certificationsContent, feesContent, faqContent, contactContent, testimonialsContent, formResetKey]);
+  }, [contactInfo, certificationsContent, feesContent, faqContent, contactContent, testimonialsContent, formResetKey]);
 
   const isConfigured = isSupabaseConfigured();
 
@@ -243,14 +239,6 @@ export default function AdminPage() {
 
   const renderForm = (sectionKey: SectionKey, dbKey: string) => {
     switch (sectionKey) {
-      case 'hero':
-        return (
-          <HeroForm
-            key={formResetKey}
-            data={heroContent}
-            onChange={(data) => handleFormChange(dbKey, data)}
-          />
-        );
       case 'contactInfo':
         return (
           <ContactInfoForm
