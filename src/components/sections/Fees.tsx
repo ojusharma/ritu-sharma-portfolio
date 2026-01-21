@@ -62,7 +62,7 @@ export default function Fees() {
               </p>
 
               {/* Features */}
-              <ul className="space-y-3 mb-6 flex-grow">
+              <ul className="space-y-3 flex-grow">
                 {service.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3 text-sm">
                     <Check
@@ -77,20 +77,6 @@ export default function Fees() {
                   </li>
                 ))}
               </ul>
-
-              {/* CTA Button */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-auto w-full py-3 px-4 rounded-full font-semibold text-center transition-all duration-300 ${
-                  service.popular
-                    ? 'bg-accent text-primary-dark hover:bg-accent/90'
-                    : 'bg-primary text-white hover:bg-primary-light'
-                }`}
-              >
-                Get Started
-              </a>
             </div>
           ))}
         </div>
