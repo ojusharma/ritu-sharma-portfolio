@@ -65,7 +65,7 @@ export default function Navbar() {
               onClick={() => scrollToSection('contact')}
               className="ml-2 px-5 py-2.5 bg-primary hover:bg-primary-light text-white rounded-full transition-all duration-200 text-sm font-semibold"
             >
-              Book Now
+             Contact & Book Now
             </button>
           </div>
 
@@ -99,7 +99,7 @@ export default function Navbar() {
               onClick={() => scrollToSection('contact')}
               className="mt-2 mb-2 px-5 py-3 bg-primary hover:bg-primary-light text-white rounded-full transition-all duration-200 font-semibold text-center"
             >
-              Book Now
+              Contact & Book Now
             </button>
           </div>
         </div>

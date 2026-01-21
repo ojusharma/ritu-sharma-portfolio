@@ -13,9 +13,8 @@ export const SITE_CONFIG = {
 
   // Navigation items (id must match section id in components)
   navigation: [
-    { id: "hero", label: "Home" },
     { id: "certifications", label: "Certifications" },
-    { id: "fees", label: "Fees" },
+    { id: "fees", label: "Plans & Fees" },
     { id: "faq", label: "FAQ" },
   ],
 

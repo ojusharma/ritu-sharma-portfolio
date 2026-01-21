@@ -18,11 +18,11 @@ export const HERO_CONTENT = {
   
   // Call-to-action buttons
   primaryCTA: {
-    text: "Start Your Transformation",
+    text: "Contact & Book Now",
     link: "#contact",
   },
   secondaryCTA: {
-    text: "See How It Works",
+    text: "Plans & Fees",
     link: "#fees",
   },
   

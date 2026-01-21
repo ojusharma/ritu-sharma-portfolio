@@ -5,8 +5,8 @@
  */
 
 export const FEES_CONTENT = {
-  sectionTitle: "Simple, Transparent Pricing",
-  sectionSubtitle: "No hidden fees. No long-term commitments. Just results.",
+  sectionTitle: "Plans & Fees",
+  sectionSubtitle: "No hidden fees. No crash-diets. Just results.",
   
   // Currency symbol
   currency: "₹",

@@ -41,6 +41,12 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+               <button
+                onClick={() => scrollToSection(HERO_CONTENT.secondaryCTA.link)}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/50 text-white rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
+              >
+                {HERO_CONTENT.secondaryCTA.text}
+              </button>
               <button
                 onClick={() => scrollToSection(HERO_CONTENT.primaryCTA.link)}
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-light text-white rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
@@ -48,12 +54,7 @@ export default function Hero() {
                 {HERO_CONTENT.primaryCTA.text}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <button
-                onClick={() => scrollToSection(HERO_CONTENT.secondaryCTA.link)}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/50 text-white rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
-              >
-                {HERO_CONTENT.secondaryCTA.text}
-              </button>
+             
             </div>
 
             {/* Highlights/Stats */}
