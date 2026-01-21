@@ -37,22 +37,6 @@ export default function ContactContentForm({ data, onChange }: ContactContentFor
 
   return (
     <div className="space-y-6 pt-6">
-      {/* Section Title & Subtitle */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="Section Title"
-          type="text"
-          value={formData.sectionTitle}
-          onChange={(e) => handleChange('sectionTitle', e.target.value)}
-        />
-        <Input
-          label="Section Subtitle"
-          type="text"
-          value={formData.sectionSubtitle}
-          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-        />
-      </div>
-
       <Textarea
         label="Welcome Message"
         value={formData.message}

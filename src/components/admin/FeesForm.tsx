@@ -108,32 +108,6 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
 
   return (
     <div className="space-y-6 pt-6">
-      {/* Section Title & Subtitle */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="Section Title"
-          type="text"
-          value={formData.sectionTitle}
-          onChange={(e) => handleChange('sectionTitle', e.target.value)}
-        />
-        <Input
-          label="Section Subtitle"
-          type="text"
-          value={formData.sectionSubtitle}
-          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-        />
-      </div>
-
-      {/* Currency */}
-      <div className="w-32">
-        <Input
-          label="Currency Symbol"
-          type="text"
-          value={formData.currency}
-          onChange={(e) => handleChange('currency', e.target.value)}
-        />
-      </div>
-
       {/* Services */}
       <div>
         <div className="flex items-center justify-between mb-4">

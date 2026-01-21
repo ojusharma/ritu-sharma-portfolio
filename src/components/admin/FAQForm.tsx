@@ -22,10 +22,6 @@ export default function FAQForm({ data, onChange }: FAQFormProps) {
     }
   }, [formData]);
 
-  const handleChange = (field: 'sectionTitle' | 'sectionSubtitle', value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleFAQChange = (id: number, field: keyof FAQ, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -64,22 +60,6 @@ export default function FAQForm({ data, onChange }: FAQFormProps) {
 
   return (
     <div className="space-y-6 pt-6">
-      {/* Section Title & Subtitle */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="Section Title"
-          type="text"
-          value={formData.sectionTitle}
-          onChange={(e) => handleChange('sectionTitle', e.target.value)}
-        />
-        <Input
-          label="Section Subtitle"
-          type="text"
-          value={formData.sectionSubtitle}
-          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-        />
-      </div>
-
       {/* FAQs List */}
       <div>
         <div className="flex items-center justify-between mb-4">

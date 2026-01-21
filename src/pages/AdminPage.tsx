@@ -7,17 +7,15 @@ import { isSupabaseConfigured } from '../lib/supabase';
 
 // Import form components
 import {
-  ContactInfoForm,
   CertificationsForm,
   FeesForm,
   FAQForm,
-  ContactContentForm,
   TestimonialsForm,
   ConfirmSaveModal,
   DiscardChangesModal,
 } from '../components/admin';
 
-type SectionKey = 'contactInfo' | 'certifications' | 'fees' | 'faq' | 'contactContent' | 'testimonials';
+type SectionKey = 'certifications' | 'fees' | 'faq' | 'testimonials';
 
 interface Section {
   key: SectionKey;
@@ -26,22 +24,18 @@ interface Section {
 }
 
 const sections: Section[] = [
-  { key: 'contactInfo', title: 'Contact Information', dbKey: 'contact_info' },
   { key: 'certifications', title: 'Certifications', dbKey: 'certifications' },
   { key: 'fees', title: 'Plans & Fees', dbKey: 'fees' },
   { key: 'faq', title: 'FAQ', dbKey: 'faq' },
-  { key: 'contactContent', title: 'Contact Section', dbKey: 'contact' },
   { key: 'testimonials', title: 'Testimonials', dbKey: 'testimonials' },
 ];
 
 export default function AdminPage() {
   const { user, signOut } = useAuth();
   const {
-    contactInfo,
     certificationsContent,
     feesContent,
     faqContent,
-    contactContent,
     testimonialsContent,
     isLoading,
     updateContent,
@@ -61,14 +55,12 @@ export default function AdminPage() {
   // Store original data when content loads or forms reset
   useEffect(() => {
     originalDataRef.current = {
-      contact_info: contactInfo,
       certifications: certificationsContent,
       fees: feesContent,
       faq: faqContent,
-      contact: contactContent,
       testimonials: testimonialsContent,
     };
-  }, [contactInfo, certificationsContent, feesContent, faqContent, contactContent, testimonialsContent, formResetKey]);
+  }, [certificationsContent, feesContent, faqContent, testimonialsContent, formResetKey]);
 
   const isConfigured = isSupabaseConfigured();
 
@@ -239,14 +231,6 @@ export default function AdminPage() {
 
   const renderForm = (sectionKey: SectionKey, dbKey: string) => {
     switch (sectionKey) {
-      case 'contactInfo':
-        return (
-          <ContactInfoForm
-            key={formResetKey}
-            data={contactInfo}
-            onChange={(data) => handleFormChange(dbKey, data)}
-          />
-        );
       case 'certifications':
         return (
           <CertificationsForm
@@ -268,14 +252,6 @@ export default function AdminPage() {
           <FAQForm
             key={formResetKey}
             data={faqContent}
-            onChange={(data) => handleFormChange(dbKey, data)}
-          />
-        );
-      case 'contactContent':
-        return (
-          <ContactContentForm
-            key={formResetKey}
-            data={contactContent}
             onChange={(data) => handleFormChange(dbKey, data)}
           />
         );

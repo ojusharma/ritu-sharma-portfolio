@@ -176,11 +176,11 @@ export function ContentProvider({ children }: { children: ReactNode }) {
         setContent({
           siteConfig: SITE_CONFIG, // Always from constants file
           heroContent: HERO_CONTENT, // Always from constants file
-          contactInfo: (contentMap['contact_info'] as ContactInfo) || CONTACT_INFO,
+          contactInfo: CONTACT_INFO, // Always from constants file
+          contactContent: CONTACT_CONTENT, // Always from constants file
           certificationsContent: (contentMap['certifications'] as CertificationsContent) || CERTIFICATIONS_CONTENT,
           feesContent: (contentMap['fees'] as FeesContent) || FEES_CONTENT,
           faqContent: (contentMap['faq'] as FAQContent) || FAQ_CONTENT,
-          contactContent: (contentMap['contact'] as ContactContent) || CONTACT_CONTENT,
           testimonialsContent: (contentMap['testimonials'] as TestimonialsContent) || TESTIMONIALS_CONTENT,
           isLoading: false,
           error: null,

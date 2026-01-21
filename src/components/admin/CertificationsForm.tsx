@@ -22,10 +22,6 @@ export default function CertificationsForm({ data, onChange }: CertificationsFor
     }
   }, [formData]);
 
-  const handleChange = (field: 'sectionTitle' | 'sectionSubtitle', value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleCertChange = (id: number, field: keyof Certification, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -66,20 +62,6 @@ export default function CertificationsForm({ data, onChange }: CertificationsFor
 
   return (
     <div className="space-y-6 pt-6">
-      {/* Section Title & Subtitle */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="Section Title"
-          value={formData.sectionTitle}
-          onChange={(e) => handleChange('sectionTitle', e.target.value)}
-        />
-        <Input
-          label="Section Subtitle"
-          value={formData.sectionSubtitle}
-          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-        />
-      </div>
-
       {/* Certifications List */}
       <div>
         <div className="flex items-center justify-between mb-4">

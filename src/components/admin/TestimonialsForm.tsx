@@ -22,10 +22,6 @@ export default function TestimonialsForm({ data, onChange }: TestimonialsFormPro
     }
   }, [formData]);
 
-  const handleChange = (field: keyof TestimonialsContent, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
   const handleTestimonialChange = (
     index: number,
     field: keyof Testimonial,
@@ -74,20 +70,6 @@ export default function TestimonialsForm({ data, onChange }: TestimonialsFormPro
       <p className="text-yellow-400 text-sm bg-yellow-400/10 px-4 py-2 rounded-lg">
         ⚠️ Testimonials are currently hidden. Enable them in <code className="bg-gray-700 px-1 rounded">src/constants/siteConfig.ts</code> by setting <code className="bg-gray-700 px-1 rounded">showTestimonials: true</code>
       </p>
-
-      {/* Section Title */}
-      <Input
-        label="Section Title"
-        value={formData.sectionTitle}
-        onChange={(e) => handleChange('sectionTitle', e.target.value)}
-      />
-
-      {/* Section Subtitle */}
-      <Input
-        label="Section Subtitle"
-        value={formData.sectionSubtitle}
-        onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-      />
 
       {/* Testimonials */}
       <div className="space-y-4">
