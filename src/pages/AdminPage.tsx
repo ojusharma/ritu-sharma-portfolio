@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp, CheckCircle, LogOut, Loader2, Save, X, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, CheckCircle, LogOut, Loader2, Save, X } from 'lucide-react';
 import { useContent } from '../context/ContentContext';
 import { useAuth } from '../context/AuthContext';
 import { isSupabaseConfigured } from '../lib/supabase';
-import { validateSection, ValidationError } from '../utils/validation';
 
 // Import form components
 import {
@@ -60,7 +59,6 @@ export default function AdminPage() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [pendingSectionSwitch, setPendingSectionSwitch] = useState<SectionKey | null>(null);
-  const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const originalDataRef = useRef<Record<string, unknown>>({});
 
   // Store original data when content loads or forms reset
@@ -88,7 +86,6 @@ export default function AdminPage() {
       setSaveStatus({ type: 'success', message: 'Saved successfully!' });
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
-      setValidationErrors([]);
     } else {
       setSaveStatus({ type: 'error', message: 'Failed to save. Check console for details.' });
     }
@@ -104,15 +101,6 @@ export default function AdminPage() {
 
   const handleFloatingSave = () => {
     if (pendingSaveData) {
-      // Validate before showing confirm modal
-      const result = validateSection(pendingSaveData.dbKey, pendingSaveData.data);
-      setValidationErrors(result.errors);
-      
-      if (!result.isValid) {
-        // Show validation errors, don't open confirm modal
-        return;
-      }
-      
       setShowConfirmModal(true);
     }
   };
@@ -218,7 +206,6 @@ export default function AdminPage() {
   const handleCancelChanges = () => {
     setHasUnsavedChanges(false);
     setPendingSaveData(null);
-    setValidationErrors([]);
     setFormResetKey((prev) => prev + 1); // Force form to reset to original data
   };
 
@@ -228,7 +215,6 @@ export default function AdminPage() {
       setExpandedSection(null);
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
-      setValidationErrors([]);
       return;
     }
     
@@ -242,7 +228,6 @@ export default function AdminPage() {
     // Clear any stale state and expand the new section
     setHasUnsavedChanges(false);
     setPendingSaveData(null);
-    setValidationErrors([]);
     setExpandedSection(key);
   };
 
@@ -252,7 +237,6 @@ export default function AdminPage() {
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
       setPendingSectionSwitch(null);
-      setValidationErrors([]);
     }
     setShowDiscardModal(false);
   };
@@ -422,32 +406,6 @@ export default function AdminPage() {
           ))}
         </div>
       </main>
-
-      {/* Validation Errors */}
-      {validationErrors.length > 0 && (
-        <div className="fixed bottom-24 right-6 z-50 max-w-sm bg-red-500/95 text-white rounded-lg shadow-lg p-4 animate-in slide-in-from-right">
-          <div className="flex items-start gap-3">
-            <AlertTriangle size={20} className="flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-medium mb-2">Please fix the following errors:</p>
-              <ul className="text-sm space-y-1">
-                {validationErrors.slice(0, 5).map((err, i) => (
-                  <li key={i}>• {err.message}</li>
-                ))}
-                {validationErrors.length > 5 && (
-                  <li className="text-red-200">...and {validationErrors.length - 5} more</li>
-                )}
-              </ul>
-            </div>
-            <button
-              onClick={() => setValidationErrors([])}
-              className="flex-shrink-0 p-1 hover:bg-red-600 rounded transition-colors"
-            >
-              <X size={16} />
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Floating Action Buttons */}
       {hasUnsavedChanges && (
