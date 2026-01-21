@@ -39,10 +39,10 @@ export default function Certifications() {
                   onClick={() => toggleExpand(cert.id)}
                 >
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold text-primary-dark">
+                    <h3 className="text-lg font-semibold text-primary-dark">
                       {cert.title}
                     </h3>
-                    <p className="mt-2 text-base font-semibold text-primary">
+                    <p className="mt-2 text-sm font-medium text-primary">
                       {cert.institution}
                     </p>
                   </div>
@@ -76,10 +76,10 @@ export default function Certifications() {
 
                 {/* Desktop: Always visible content */}
                 <div className="hidden md:block">
-                  <h3 className="text-xl font-bold text-primary-dark">
+                  <h3 className="text-xl font-semibold text-primary-dark">
                     {cert.title}
                   </h3>
-                  <p className="mt-2 text-base font-semibold text-primary">
+                  <p className="mt-2 text-base font-medium text-primary">
                     {cert.institution}
                   </p>
                   <p className="mt-3 text-gray-600 leading-relaxed">
