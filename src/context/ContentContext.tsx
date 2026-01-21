@@ -155,7 +155,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
 
   const fetchContent = async () => {
     // If Supabase isn't configured, use defaults
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       setContent((prev) => ({ ...prev, isLoading: false }));
       return;
     }
@@ -200,7 +200,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   };
 
   const updateContent = async (key: string, data: unknown): Promise<boolean> => {
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !supabase) {
       console.error('Supabase not configured');
       return false;
     }
