@@ -14,6 +14,11 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
 
+  // Update originalDataRef when data prop changes (component remounts via key prop)
+  useEffect(() => {
+    originalDataRef.current = JSON.stringify(data);
+  }, [data]);
+
   useEffect(() => {
     // Only trigger onChange if data actually differs from original
     const currentDataStr = JSON.stringify(formData);
