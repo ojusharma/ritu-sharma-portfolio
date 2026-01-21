@@ -5,3 +5,5 @@ export { default as FeesForm } from './FeesForm';
 export { default as FAQForm } from './FAQForm';
 export { default as ContactContentForm } from './ContactContentForm';
 export { default as TestimonialsForm } from './TestimonialsForm';
+export { default as ConfirmSaveModal } from './ConfirmSaveModal';
+export { default as DiscardChangesModal } from './DiscardChangesModal';

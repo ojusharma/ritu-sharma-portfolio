@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { HeroContent } from '../../context/ContentContext';
+import { Input, Textarea } from '../ui';
 
 interface HeroFormProps {
   data: HeroContent;
@@ -46,121 +47,73 @@ export default function HeroForm({ data, onChange }: HeroFormProps) {
 
   return (
     <div className="space-y-6 pt-6">
-      {/* Headline */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Headline
-        </label>
-        <input
-          type="text"
-          value={formData.headline}
-          onChange={(e) => handleChange('headline', e.target.value)}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-        />
-      </div>
+      <Input
+        label="Headline"
+        type="text"
+        value={formData.headline}
+        onChange={(e) => handleChange('headline', e.target.value)}
+      />
 
-      {/* Tagline */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Tagline
-        </label>
-        <input
-          type="text"
-          value={formData.tagline}
-          onChange={(e) => handleChange('tagline', e.target.value)}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-        />
-      </div>
+      <Input
+        label="Tagline"
+        type="text"
+        value={formData.tagline}
+        onChange={(e) => handleChange('tagline', e.target.value)}
+      />
 
-      {/* Description */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Description
-        </label>
-        <textarea
-          value={formData.description}
-          onChange={(e) => handleChange('description', e.target.value)}
-          rows={3}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-        />
-      </div>
+      <Textarea
+        label="Description"
+        value={formData.description}
+        onChange={(e) => handleChange('description', e.target.value)}
+        rows={3}
+      />
 
       {/* Primary CTA */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Primary Button Text
-          </label>
-          <input
-            type="text"
-            value={formData.primaryCTA.text}
-            onChange={(e) => handleCTAChange('primaryCTA', 'text', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Primary Button Link
-          </label>
-          <input
-            type="text"
-            value={formData.primaryCTA.link}
-            onChange={(e) => handleCTAChange('primaryCTA', 'link', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Primary Button Text"
+          type="text"
+          value={formData.primaryCTA.text}
+          onChange={(e) => handleCTAChange('primaryCTA', 'text', e.target.value)}
+        />
+        <Input
+          label="Primary Button Link"
+          type="text"
+          value={formData.primaryCTA.link}
+          onChange={(e) => handleCTAChange('primaryCTA', 'link', e.target.value)}
+        />
       </div>
 
       {/* Secondary CTA */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Secondary Button Text
-          </label>
-          <input
-            type="text"
-            value={formData.secondaryCTA.text}
-            onChange={(e) => handleCTAChange('secondaryCTA', 'text', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Secondary Button Link
-          </label>
-          <input
-            type="text"
-            value={formData.secondaryCTA.link}
-            onChange={(e) => handleCTAChange('secondaryCTA', 'link', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Secondary Button Text"
+          type="text"
+          value={formData.secondaryCTA.text}
+          onChange={(e) => handleCTAChange('secondaryCTA', 'text', e.target.value)}
+        />
+        <Input
+          label="Secondary Button Link"
+          type="text"
+          value={formData.secondaryCTA.link}
+          onChange={(e) => handleCTAChange('secondaryCTA', 'link', e.target.value)}
+        />
       </div>
 
       {/* Image */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Hero Image URL
-          </label>
-          <input
-            type="text"
-            value={formData.image}
-            onChange={(e) => handleChange('image', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Image Alt Text
-          </label>
-          <input
-            type="text"
-            value={formData.imageAlt}
-            onChange={(e) => handleChange('imageAlt', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Hero Image URL"
+          type="text"
+          value={formData.image}
+          onChange={(e) => handleChange('image', e.target.value)}
+        />
+        <Input
+          label="Image Alt Text"
+          type="text"
+          value={formData.imageAlt}
+          onChange={(e) => handleChange('imageAlt', e.target.value)}
+        />
       </div>
 
       {/* Highlights */}
@@ -171,25 +124,22 @@ export default function HeroForm({ data, onChange }: HeroFormProps) {
         <div className="space-y-3">
           {formData.highlights.map((highlight, index) => (
             <div key={index} className="grid grid-cols-2 gap-3">
-              <input
+              <Input
                 type="text"
                 value={highlight.value}
                 onChange={(e) => handleHighlightChange(index, 'value', e.target.value)}
                 placeholder="Value"
-                className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
-              <input
+              <Input
                 type="text"
                 value={highlight.label}
                 onChange={(e) => handleHighlightChange(index, 'label', e.target.value)}
                 placeholder="Label"
-                className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

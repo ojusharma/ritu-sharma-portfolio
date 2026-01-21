@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { TestimonialsContent, Testimonial } from '../../context/ContentContext';
+import { Input, Textarea } from '../ui';
 
 interface TestimonialsFormProps {
   data: TestimonialsContent;
@@ -75,30 +76,18 @@ export default function TestimonialsForm({ data, onChange }: TestimonialsFormPro
       </p>
 
       {/* Section Title */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Section Title
-        </label>
-        <input
-          type="text"
-          value={formData.sectionTitle}
-          onChange={(e) => handleChange('sectionTitle', e.target.value)}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-        />
-      </div>
+      <Input
+        label="Section Title"
+        value={formData.sectionTitle}
+        onChange={(e) => handleChange('sectionTitle', e.target.value)}
+      />
 
       {/* Section Subtitle */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Section Subtitle
-        </label>
-        <input
-          type="text"
-          value={formData.sectionSubtitle}
-          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-        />
-      </div>
+      <Input
+        label="Section Subtitle"
+        value={formData.sectionSubtitle}
+        onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
+      />
 
       {/* Testimonials */}
       <div className="space-y-4">
@@ -132,51 +121,33 @@ export default function TestimonialsForm({ data, onChange }: TestimonialsFormPro
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-400 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  value={testimonial.name}
-                  onChange={(e) =>
-                    handleTestimonialChange(index, 'name', e.target.value)
-                  }
-                  className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
-                  placeholder="Client name"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-400 mb-1">
-                  Role
-                </label>
-                <input
-                  type="text"
-                  value={testimonial.role}
-                  onChange={(e) =>
-                    handleTestimonialChange(index, 'role', e.target.value)
-                  }
-                  className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
-                  placeholder="e.g., Working Professional"
-                />
-              </div>
+              <Input
+                label="Name"
+                value={testimonial.name}
+                onChange={(e) =>
+                  handleTestimonialChange(index, 'name', e.target.value)
+                }
+                placeholder="Client name"
+              />
+              <Input
+                label="Role"
+                value={testimonial.role}
+                onChange={(e) =>
+                  handleTestimonialChange(index, 'role', e.target.value)
+                }
+                placeholder="e.g., Working Professional"
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-400 mb-1">
-                  Image URL
-                </label>
-                <input
-                  type="text"
-                  value={testimonial.image}
-                  onChange={(e) =>
-                    handleTestimonialChange(index, 'image', e.target.value)
-                  }
-                  className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
-                  placeholder="https://..."
-                />
-              </div>
+              <Input
+                label="Image URL"
+                value={testimonial.image}
+                onChange={(e) =>
+                  handleTestimonialChange(index, 'image', e.target.value)
+                }
+                placeholder="https://..."
+              />
               <div>
                 <label className="block text-xs font-medium text-gray-400 mb-1">
                   Rating (1-5)
@@ -197,20 +168,15 @@ export default function TestimonialsForm({ data, onChange }: TestimonialsFormPro
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-medium text-gray-400 mb-1">
-                Testimonial Text
-              </label>
-              <textarea
-                value={testimonial.text}
-                onChange={(e) =>
-                  handleTestimonialChange(index, 'text', e.target.value)
-                }
-                rows={2}
-                className="w-full px-3 py-2 bg-gray-600 border border-gray-500 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm resize-none"
-                placeholder="What the client said..."
-              />
-            </div>
+            <Textarea
+              label="Testimonial Text"
+              value={testimonial.text}
+              onChange={(e) =>
+                handleTestimonialChange(index, 'text', e.target.value)
+              }
+              rows={2}
+              placeholder="What the client said..."
+            />
           </div>
         ))}
       </div>

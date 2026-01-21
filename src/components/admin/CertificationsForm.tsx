@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { CertificationsContent, Certification } from '../../context/ContentContext';
+import { Input, Textarea } from '../ui';
 
 interface CertificationsFormProps {
   data: CertificationsContent;
@@ -67,28 +68,16 @@ export default function CertificationsForm({ data, onChange }: CertificationsFor
     <div className="space-y-6 pt-6">
       {/* Section Title & Subtitle */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Title
-          </label>
-          <input
-            type="text"
-            value={formData.sectionTitle}
-            onChange={(e) => handleChange('sectionTitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Subtitle
-          </label>
-          <input
-            type="text"
-            value={formData.sectionSubtitle}
-            onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Section Title"
+          value={formData.sectionTitle}
+          onChange={(e) => handleChange('sectionTitle', e.target.value)}
+        />
+        <Input
+          label="Section Subtitle"
+          value={formData.sectionSubtitle}
+          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
+        />
       </div>
 
       {/* Certifications List */}
@@ -116,26 +105,21 @@ export default function CertificationsForm({ data, onChange }: CertificationsFor
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 space-y-3">
-                  <input
-                    type="text"
+                  <Input
                     value={cert.title}
                     onChange={(e) => handleCertChange(cert.id, 'title', e.target.value)}
                     placeholder="Certification Title"
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <input
-                    type="text"
+                  <Input
                     value={cert.institution}
                     onChange={(e) => handleCertChange(cert.id, 'institution', e.target.value)}
                     placeholder="Institution"
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <textarea
+                  <Textarea
                     value={cert.description}
                     onChange={(e) => handleCertChange(cert.id, 'description', e.target.value)}
                     placeholder="Description"
                     rows={2}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                   />
                   <select
                     value={cert.icon}

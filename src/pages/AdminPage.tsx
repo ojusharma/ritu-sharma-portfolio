@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, ChevronUp, CheckCircle, LogOut, Loader2, Save, X, AlertTriangle, Trash2 } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, CheckCircle, LogOut, Loader2, Save, X, AlertTriangle } from 'lucide-react';
 import { useContent } from '../context/ContentContext';
 import { useAuth } from '../context/AuthContext';
 import { isSupabaseConfigured } from '../lib/supabase';
+import { validateSection, ValidationError } from '../utils/validation';
 
 // Import form components
 import {
@@ -14,6 +15,8 @@ import {
   FAQForm,
   ContactContentForm,
   TestimonialsForm,
+  ConfirmSaveModal,
+  DiscardChangesModal,
 } from '../components/admin';
 
 type SectionKey = 'hero' | 'contactInfo' | 'certifications' | 'fees' | 'faq' | 'contactContent' | 'testimonials';
@@ -34,99 +37,8 @@ const sections: Section[] = [
   { key: 'testimonials', title: 'Testimonials', dbKey: 'testimonials' },
 ];
 
-// Login Form Component
-function LoginForm() {
-  const { signIn } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setIsLoading(true);
-
-    const { error } = await signIn(email, password);
-
-    if (error) {
-      setError(error);
-    }
-
-    setIsLoading(false);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
-          <p className="text-gray-400">Sign in to manage your content</p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="bg-gray-800 rounded-xl p-6 space-y-4">
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary hover:bg-primary-light disabled:bg-primary/50 text-white rounded-lg font-medium transition-colors"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 size={18} className="animate-spin" />
-                Signing in...
-              </>
-            ) : (
-              'Sign In'
-            )}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm">
-            ← Back to site
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function AdminPage() {
-  const { user, isLoading: authLoading, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const {
     contactInfo,
     heroContent,
@@ -148,6 +60,7 @@ export default function AdminPage() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [pendingSectionSwitch, setPendingSectionSwitch] = useState<SectionKey | null>(null);
+  const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const originalDataRef = useRef<Record<string, unknown>>({});
 
   // Store original data when content loads or forms reset
@@ -165,11 +78,6 @@ export default function AdminPage() {
 
   const isConfigured = isSupabaseConfigured();
 
-  // Show login form if not authenticated
-  if (!authLoading && !user && isConfigured) {
-    return <LoginForm />;
-  }
-
   const handleSave = async (dbKey: string, data: unknown) => {
     setSavingSection(dbKey);
     setSaveStatus(null);
@@ -180,6 +88,7 @@ export default function AdminPage() {
       setSaveStatus({ type: 'success', message: 'Saved successfully!' });
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
+      setValidationErrors([]);
     } else {
       setSaveStatus({ type: 'error', message: 'Failed to save. Check console for details.' });
     }
@@ -195,6 +104,15 @@ export default function AdminPage() {
 
   const handleFloatingSave = () => {
     if (pendingSaveData) {
+      // Validate before showing confirm modal
+      const result = validateSection(pendingSaveData.dbKey, pendingSaveData.data);
+      setValidationErrors(result.errors);
+      
+      if (!result.isValid) {
+        // Show validation errors, don't open confirm modal
+        return;
+      }
+      
       setShowConfirmModal(true);
     }
   };
@@ -225,7 +143,7 @@ export default function AdminPage() {
     };
 
     // Handle array fields (certifications, services, faqs, testimonials)
-    const describeArrayChanges = (fieldName: string, oldArr: unknown[], newArr: unknown[], itemLabel: string, nameKey = 'title') => {
+    const describeArrayChanges = (oldArr: unknown[], newArr: unknown[], itemLabel: string) => {
       const oldCount = oldArr?.length || 0;
       const newCount = newArr?.length || 0;
       
@@ -264,15 +182,15 @@ export default function AdminPage() {
         
         // Determine item label based on field name
         if (key === 'certifications') {
-          describeArrayChanges(key, oldArr, newArr, 'certification');
+          describeArrayChanges(oldArr, newArr, 'certification');
         } else if (key === 'services') {
-          describeArrayChanges(key, oldArr, newArr, 'plan', 'name');
+          describeArrayChanges(oldArr, newArr, 'plan');
         } else if (key === 'faqs') {
-          describeArrayChanges(key, oldArr, newArr, 'FAQ', 'question');
+          describeArrayChanges(oldArr, newArr, 'FAQ');
         } else if (key === 'testimonials') {
-          describeArrayChanges(key, oldArr, newArr, 'testimonial', 'name');
+          describeArrayChanges(oldArr, newArr, 'testimonial');
         } else {
-          describeArrayChanges(key, oldArr, newArr, 'item');
+          describeArrayChanges(oldArr, newArr, 'item');
         }
         return;
       }
@@ -300,6 +218,7 @@ export default function AdminPage() {
   const handleCancelChanges = () => {
     setHasUnsavedChanges(false);
     setPendingSaveData(null);
+    setValidationErrors([]);
     setFormResetKey((prev) => prev + 1); // Force form to reset to original data
   };
 
@@ -309,6 +228,7 @@ export default function AdminPage() {
       setExpandedSection(null);
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
+      setValidationErrors([]);
       return;
     }
     
@@ -322,6 +242,7 @@ export default function AdminPage() {
     // Clear any stale state and expand the new section
     setHasUnsavedChanges(false);
     setPendingSaveData(null);
+    setValidationErrors([]);
     setExpandedSection(key);
   };
 
@@ -331,6 +252,7 @@ export default function AdminPage() {
       setHasUnsavedChanges(false);
       setPendingSaveData(null);
       setPendingSectionSwitch(null);
+      setValidationErrors([]);
     }
     setShowDiscardModal(false);
   };
@@ -398,7 +320,7 @@ export default function AdminPage() {
     }
   };
 
-  if (isLoading || authLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
@@ -501,6 +423,32 @@ export default function AdminPage() {
         </div>
       </main>
 
+      {/* Validation Errors */}
+      {validationErrors.length > 0 && (
+        <div className="fixed bottom-24 right-6 z-50 max-w-sm bg-red-500/95 text-white rounded-lg shadow-lg p-4 animate-in slide-in-from-right">
+          <div className="flex items-start gap-3">
+            <AlertTriangle size={20} className="flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium mb-2">Please fix the following errors:</p>
+              <ul className="text-sm space-y-1">
+                {validationErrors.slice(0, 5).map((err, i) => (
+                  <li key={i}>• {err.message}</li>
+                ))}
+                {validationErrors.length > 5 && (
+                  <li className="text-red-200">...and {validationErrors.length - 5} more</li>
+                )}
+              </ul>
+            </div>
+            <button
+              onClick={() => setValidationErrors([])}
+              className="flex-shrink-0 p-1 hover:bg-red-600 rounded transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Floating Action Buttons */}
       {hasUnsavedChanges && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
@@ -533,120 +481,25 @@ export default function AdminPage() {
       )}
 
       {/* Confirmation Modal */}
-      {showConfirmModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={() => setShowConfirmModal(false)}
-          />
-
-          {/* Modal */}
-          <div className="relative bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-hidden border border-gray-700">
-            {/* Header */}
-            <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-700 bg-gray-800/80">
-              <AlertTriangle size={24} className="text-yellow-500" />
-              <h3 className="text-lg font-semibold text-white">Confirm Changes</h3>
-            </div>
-
-            {/* Content */}
-            <div className="px-6 py-4 overflow-y-auto max-h-[50vh]">
-              <p className="text-gray-300 mb-4">
-                You're about to save the following changes to <span className="font-semibold text-primary">{sections.find(s => s.dbKey === pendingSaveData?.dbKey)?.title}</span>:
-              </p>
-
-              <ul className="space-y-2">
-                {getChanges().map((change, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-300">
-                    <CheckCircle size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                    <span>{change}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800/80">
-              <button
-                onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmSave}
-                disabled={savingSection !== null}
-                className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary-light disabled:bg-primary/50 text-white rounded-lg font-medium transition-colors"
-              >
-                {savingSection ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    Saving...
-                  </>
-                ) : (
-                  <>
-                    <CheckCircle size={18} />
-                    Confirm & Save
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmSaveModal
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={handleConfirmSave}
+        sectionTitle={sections.find(s => s.dbKey === pendingSaveData?.dbKey)?.title || ''}
+        changes={getChanges()}
+        isSaving={savingSection !== null}
+      />
 
       {/* Discard Changes Modal */}
-      {showDiscardModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={() => {
-              setShowDiscardModal(false);
-              setPendingSectionSwitch(null);
-            }}
-          />
-
-          {/* Modal */}
-          <div className="relative bg-gray-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-700">
-            {/* Header */}
-            <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-700 bg-gray-800/80">
-              <AlertTriangle size={24} className="text-yellow-500" />
-              <h3 className="text-lg font-semibold text-white">Unsaved Changes</h3>
-            </div>
-
-            {/* Content */}
-            <div className="px-6 py-5">
-              <p className="text-gray-300">
-                You have unsaved changes in <span className="font-semibold text-white">{sections.find(s => s.key === expandedSection)?.title || 'the current section'}</span>.
-              </p>
-              <p className="text-gray-400 mt-2">
-                Are you sure you want to switch sections? Your changes will be lost.
-              </p>
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-700 bg-gray-800/80">
-              <button
-                onClick={() => {
-                  setShowDiscardModal(false);
-                  setPendingSectionSwitch(null);
-                }}
-                className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
-              >
-                Stay Here
-              </button>
-              <button
-                onClick={handleConfirmDiscard}
-                className="flex items-center gap-2 px-5 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg font-medium transition-colors"
-              >
-                <Trash2 size={18} />
-                Discard Changes
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DiscardChangesModal
+        isOpen={showDiscardModal}
+        onClose={() => {
+          setShowDiscardModal(false);
+          setPendingSectionSwitch(null);
+        }}
+        onConfirm={handleConfirmDiscard}
+        sectionTitle={sections.find(s => s.key === expandedSection)?.title || 'the current section'}
+      />
     </div>
   );
 }

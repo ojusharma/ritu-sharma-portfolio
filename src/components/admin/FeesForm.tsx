@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { FeesContent, Service } from '../../context/ContentContext';
+import { Input, Textarea } from '../ui';
 
 interface FeesFormProps {
   data: FeesContent;
@@ -109,40 +110,27 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
     <div className="space-y-6 pt-6">
       {/* Section Title & Subtitle */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Title
-          </label>
-          <input
-            type="text"
-            value={formData.sectionTitle}
-            onChange={(e) => handleChange('sectionTitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Subtitle
-          </label>
-          <input
-            type="text"
-            value={formData.sectionSubtitle}
-            onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Section Title"
+          type="text"
+          value={formData.sectionTitle}
+          onChange={(e) => handleChange('sectionTitle', e.target.value)}
+        />
+        <Input
+          label="Section Subtitle"
+          type="text"
+          value={formData.sectionSubtitle}
+          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
+        />
       </div>
 
       {/* Currency */}
       <div className="w-32">
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Currency Symbol
-        </label>
-        <input
+        <Input
+          label="Currency Symbol"
           type="text"
           value={formData.currency}
           onChange={(e) => handleChange('currency', e.target.value)}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         />
       </div>
 
@@ -175,32 +163,29 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <input
+                  <Input
                     type="text"
                     value={service.name}
                     onChange={(e) =>
                       handleServiceChange(service.id, 'name', e.target.value)
                     }
                     placeholder="Plan Name"
-                    className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <input
+                  <Input
                     type="text"
                     value={service.price}
                     onChange={(e) =>
                       handleServiceChange(service.id, 'price', e.target.value)
                     }
                     placeholder="Price (e.g., 9,999)"
-                    className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <input
+                  <Input
                     type="text"
                     value={service.duration}
                     onChange={(e) =>
                       handleServiceChange(service.id, 'duration', e.target.value)
                     }
                     placeholder="Duration (e.g., 3 months)"
-                    className="px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
                   <label className="flex items-center gap-3 px-4 py-3 cursor-pointer">
                     <input
@@ -223,14 +208,13 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
                 </button>
               </div>
 
-              <textarea
+              <Textarea
                 value={service.description}
                 onChange={(e) =>
                   handleServiceChange(service.id, 'description', e.target.value)
                 }
                 placeholder="Description"
                 rows={2}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
               />
 
               {/* Features */}
@@ -248,14 +232,14 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
                 <div className="space-y-2">
                   {service.features.map((feature, index) => (
                     <div key={index} className="flex items-center gap-2">
-                      <input
+                      <Input
                         type="text"
                         value={feature}
                         onChange={(e) =>
                           handleFeatureChange(service.id, index, e.target.value)
                         }
                         placeholder="Feature description"
-                        className="flex-1 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        className="text-sm py-2"
                       />
                       <button
                         type="button"
@@ -273,19 +257,12 @@ export default function FeesForm({ data, onChange }: FeesFormProps) {
         </div>
       </div>
 
-      {/* Note */}
-      <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">
-          Footer Note
-        </label>
-        <textarea
-          value={formData.note}
-          onChange={(e) => handleChange('note', e.target.value)}
-          rows={2}
-          className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-        />
-      </div>
-
+      <Textarea
+        label="Footer Note"
+        value={formData.note}
+        onChange={(e) => handleChange('note', e.target.value)}
+        rows={2}
+      />
     </div>
   );
 }

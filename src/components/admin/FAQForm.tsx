@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { FAQContent, FAQ } from '../../context/ContentContext';
+import { Input, Textarea } from '../ui';
 
 interface FAQFormProps {
   data: FAQContent;
@@ -65,28 +66,18 @@ export default function FAQForm({ data, onChange }: FAQFormProps) {
     <div className="space-y-6 pt-6">
       {/* Section Title & Subtitle */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Title
-          </label>
-          <input
-            type="text"
-            value={formData.sectionTitle}
-            onChange={(e) => handleChange('sectionTitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Section Subtitle
-          </label>
-          <input
-            type="text"
-            value={formData.sectionSubtitle}
-            onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
-            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
-        </div>
+        <Input
+          label="Section Title"
+          type="text"
+          value={formData.sectionTitle}
+          onChange={(e) => handleChange('sectionTitle', e.target.value)}
+        />
+        <Input
+          label="Section Subtitle"
+          type="text"
+          value={formData.sectionSubtitle}
+          onChange={(e) => handleChange('sectionSubtitle', e.target.value)}
+        />
       </div>
 
       {/* FAQs List */}
@@ -117,19 +108,17 @@ export default function FAQForm({ data, onChange }: FAQFormProps) {
                   Q{index + 1}
                 </span>
                 <div className="flex-1 space-y-3">
-                  <input
+                  <Input
                     type="text"
                     value={faq.question}
                     onChange={(e) => handleFAQChange(faq.id, 'question', e.target.value)}
                     placeholder="Question"
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
-                  <textarea
+                  <Textarea
                     value={faq.answer}
                     onChange={(e) => handleFAQChange(faq.id, 'answer', e.target.value)}
                     placeholder="Answer"
                     rows={3}
-                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                   />
                 </div>
                 <button
