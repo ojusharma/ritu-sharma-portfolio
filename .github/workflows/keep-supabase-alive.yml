@@ -1,35 +1,37 @@
-name: Keep Supabase Alive
+# name: Keep Supabase Alive
 
-on:
-  schedule:
-    - cron: '0 0 */5 * *'
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: '0 0 */5 * *'
+#   workflow_dispatch:
 
-jobs:
-  ping-supabase:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ping Supabase Database
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: |
-          echo "Pinging Supabase to keep database active..."
+# jobs:
+#   ping-supabase:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Ping Supabase Database
+#         env:
+#           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+#           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+#         run: |
+#           echo "Pinging Supabase to keep database active..."
+#           echo "Timestamp: $(date -u)"
+#           echo "Target: ${SUPABASE_URL}/rest/v1/"
           
-          response=$(curl -s -w "\n%{http_code}" \
-            "${SUPABASE_URL}/rest/v1/" \
-            -H "apikey: ${SUPABASE_ANON_KEY}" \
-            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+#           response=$(curl -s -w "\n%{http_code}" \
+#             "${SUPABASE_URL}/rest/v1/" \
+#             -H "apikey: ${SUPABASE_ANON_KEY}" \
+#             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
           
-          http_code=$(echo "$response" | tail -n1)
-          body=$(echo "$response" | sed '$d')
+#           http_code=$(echo "$response" | tail -n1)
+#           body=$(echo "$response" | sed '$d')
           
-          echo "Response code: $http_code"
+#           echo "Response code: $http_code"
           
-          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
-            echo "Successfully pinged Supabase database"
-          else
-            echo "Failed to ping Supabase database"
-            echo "Response: $body"
-            exit 1
-          fi
+#           if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+#             echo "Successfully pinged Supabase database"
+#           else
+#             echo "Failed to ping Supabase database"
+#             echo "Response: $body"
+#             exit 1
+#           fi
