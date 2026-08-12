@@ -24,10 +24,10 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
             {testimonialsContent.sectionTitle}
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-gray-600">
             {testimonialsContent.sectionSubtitle}
           </p>
         </div>
@@ -132,7 +132,7 @@ function TestimonialCard({ testimonial }: TestimonialCardProps) {
           className="w-12 h-12 rounded-full object-cover"
         />
         <div>
-          <p className="font-semibold text-primary-dark">{testimonial.name}</p>
+          <p className="font-semibold text-sm text-primary-dark">{testimonial.name}</p>
           <p className="text-sm text-gray-500">{testimonial.role}</p>
         </div>
       </div>

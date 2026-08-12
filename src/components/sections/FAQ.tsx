@@ -11,14 +11,14 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-white">
+    <section id="faq" className="py-14 md:py-28 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
             {faqContent.sectionTitle}
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-gray-600">
             {faqContent.sectionSubtitle}
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function FAQ() {
                 className="w-full flex items-center justify-between gap-4 p-5 sm:p-6 text-left bg-white hover:bg-gray-50 transition-colors"
                 aria-expanded={openId === faq.id}
               >
-                <span className="font-semibold text-primary-dark pr-4">
+                <span className="font-semibold text-sm sm:text-base text-primary-dark pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -52,7 +52,7 @@ export default function FAQ() {
                 }`}
               >
                 <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>

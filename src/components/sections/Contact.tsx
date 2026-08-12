@@ -9,22 +9,19 @@ export default function Contact() {
   )}`;
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-gradient-to-br from-cream/50 to-primary-light/10">
+    <section id="contact" className="py-8 md:py-28 bg-gradient-to-br from-cream/50 to-primary-light/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
+        <div className="text-center max-w-3xl mx-auto mb-6 md:mb-16">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
             {contactContent.sectionTitle}
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            {contactContent.sectionSubtitle}
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
           {/* Contact Info */}
           <div className="space-y-8 order-2 lg:order-1">
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 text-sm sm:text-lg leading-relaxed">
               {contactContent.message}
             </p>
 
@@ -39,7 +36,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Phone / WhatsApp</p>
-                  <p className="text-primary-dark font-medium">{contactInfo.phone}</p>
+                  <p className="text-sm text-primary-dark font-medium">{contactInfo.phone}</p>
                 </div>
               </a>
 
@@ -52,7 +49,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-primary-dark font-medium">{contactInfo.email}</p>
+                  <p className="text-sm text-primary-dark font-medium">{contactInfo.email}</p>
                 </div>
               </a>
 
@@ -62,7 +59,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Location</p>
-                  <p className="text-primary-dark font-medium">{contactInfo.address}</p>
+                  <p className="text-sm text-primary-dark font-medium">{contactInfo.address}</p>
                 </div>
               </div>
 
@@ -72,7 +69,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Availability</p>
-                  <p className="text-primary-dark font-medium">
+                  <p className="text-sm text-primary-dark font-medium">
                     {contactContent.availability.days}
                   </p>
                   <p className="text-gray-600 text-sm">
@@ -95,7 +92,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Instagram</p>
-                  <p className="text-primary-dark font-medium">@thinkfit.india</p>
+                  <p className="text-sm text-primary-dark font-medium">@thinkfit.india</p>
                 </div>
               </a>
             )}
@@ -103,16 +100,16 @@ export default function Contact() {
 
           {/* CTA Card */}
           <div className="relative order-1 lg:order-2">
-            <div className="bg-primary-dark rounded-3xl p-8 sm:p-10 text-center lg:text-left">
+            <div className="bg-primary-dark rounded-3xl p-5 sm:p-10 text-center lg:text-left">
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/20 rounded-full blur-2xl" />
               
               <div className="relative">
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                <h3 className="font-display text-lg sm:text-3xl font-bold text-white mb-4">
                   Ready to Start Your Health Journey?
                 </h3>
-                <p className="text-white/70 mb-8 leading-relaxed">
+                <p className="text-white/70 text-sm sm:text-base mb-5 leading-relaxed">
                   Book your consultation today and take the first step towards a healthier, 
                   stronger you. No crash diets, just sustainable nutrition.
                 </p>
@@ -121,7 +118,7 @@ export default function Contact() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#25D366]/30"
+                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#25D366]/30"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

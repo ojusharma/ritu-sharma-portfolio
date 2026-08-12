@@ -22,33 +22,27 @@ export default function Hero() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary-light rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Main Headline */}
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+            <h1 className="font-display text-2xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
               {heroContent.headline}
             </h1>
             
             {/* Tagline */}
-            <p className="mt-4 text-xl sm:text-2xl md:text-3xl text-primary-light font-medium">
+            <p className="mt-3 text-sm sm:text-2xl md:text-3xl text-primary-light font-medium">
               {heroContent.tagline}
             </p>
             
             {/* Description */}
-            <p className="mt-6 text-white/70 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="mt-4 text-white/70 text-sm sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {heroContent.description}
             </p>
 
-            {/* CTA Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-               <button
-                onClick={() => scrollToSection(heroContent.secondaryCTA.link)}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/50 text-white rounded-full font-semibold transition-all duration-300 hover:bg-white/5"
-              >
-                {heroContent.secondaryCTA.text}
-              </button>
+            {/* CTA Button */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
                 onClick={() => scrollToSection(heroContent.primaryCTA.link)}
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-light text-white rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
@@ -56,17 +50,16 @@ export default function Hero() {
                 {heroContent.primaryCTA.text}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
-             
             </div>
 
             {/* Highlights/Stats */}
-            <div className="mt-12 grid grid-cols-3 gap-4 sm:gap-8">
+            <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-8">
               {heroContent.highlights.map((highlight, index) => (
                 <div key={index} className="text-center lg:text-left">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent">
+                  <div className="text-xl sm:text-3xl md:text-4xl font-bold text-accent">
                     {highlight.value}
                   </div>
-                  <div className="text-xs sm:text-sm text-white/60 mt-1">
+                  <div className="text-xs sm:text-sm text-white/60 mt-1 leading-tight">
                     {highlight.label}
                   </div>
                 </div>

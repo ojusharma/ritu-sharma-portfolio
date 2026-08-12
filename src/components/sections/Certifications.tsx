@@ -12,34 +12,34 @@ export default function Certifications() {
   };
 
   return (
-    <section id="certifications" className="py-20 md:py-28 bg-white">
+    <section id="certifications" className="py-14 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
+        <div className="text-center max-w-3xl mx-auto mb-6 md:mb-16">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-primary-dark">
             {certificationsContent.sectionTitle}
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-2 sm:mt-4 text-sm sm:text-lg text-gray-600">
             {certificationsContent.sectionSubtitle}
           </p>
         </div>
 
         {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 lg:gap-8">
           {certificationsContent.certifications.map((cert) => {
             const isExpanded = expandedIds.includes(cert.id);
             return (
               <div
                 key={cert.id}
-                className="group relative bg-gradient-to-br from-cream/30 to-white p-6 sm:p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
+                className="group relative bg-gradient-to-br from-cream/30 to-white p-4 sm:p-8 rounded-2xl border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/5"
               >
                 {/* Mobile: Collapsible header */}
-                <div
-                  className="md:hidden cursor-pointer flex items-start justify-between gap-3"
+                <button
+                  className="md:hidden w-full flex items-start justify-between gap-3 text-left"
                   onClick={() => toggleExpand(cert.id)}
                 >
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-primary-dark">
+                    <h3 className="text-sm font-semibold text-primary-dark">
                       {cert.title}
                     </h3>
                     <p className="mt-2 text-sm font-medium text-primary">
@@ -61,7 +61,7 @@ export default function Certifications() {
                       d="M19 9l-7 7-7-7"
                     />
                   </svg>
-                </div>
+                </button>
 
                 {/* Mobile: Expandable description */}
                 <div
@@ -69,7 +69,7 @@ export default function Certifications() {
                     isExpanded ? 'max-h-40 opacity-100 mt-3' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {cert.description}
                   </p>
                 </div>
@@ -88,7 +88,7 @@ export default function Certifications() {
                 </div>
 
                 {/* Decorative corner */}
-                <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden rounded-tr-2xl">
+                <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden rounded-tr-2xl pointer-events-none">
                   <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 transform rotate-45 translate-x-12 -translate-y-12" />
                 </div>
               </div>

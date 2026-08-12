@@ -18,7 +18,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="font-display text-2xl font-semibold">
+            <h3 className="font-display text-lg sm:text-2xl font-semibold">
               {siteConfig.name}
             </h3>
             <p className="text-white/70 text-sm leading-relaxed">
@@ -29,7 +29,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-lg">Quick Links</h4>
+            <h4 className="font-semibold text-sm sm:text-lg">Quick Links</h4>
             <div className="flex flex-col gap-2">
               {siteConfig.navigation.map((item) => (
                 <button
@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-lg">Contact</h4>
+            <h4 className="font-semibold text-sm sm:text-lg">Contact</h4>
             <div className="flex flex-col gap-3">
               <a
                 href={`tel:${contactInfo.phone}`}
@@ -81,10 +81,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/50 text-sm text-center md:text-left">
-            © {currentYear} {siteConfig.name}. All rights reserved.
-          </p>
+        <div className="mt-8 md:mt-12 pt-8 border-t border-white/10 flex justify-center">
           <p className="flex items-center gap-1 text-white/50 text-sm">
             Made with <Heart size={14} className="text-red-400 fill-current" /> in {contactInfo.city}
           </p>

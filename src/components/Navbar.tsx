@@ -73,32 +73,32 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+            className="md:hidden p-1.5 text-white hover:bg-white/10 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? 'max-h-96 pb-4' : 'max-h-0'
+            isOpen ? 'max-h-96 pb-2' : 'max-h-0'
           }`}
         >
-          <div className="flex flex-col gap-1 pt-2 bg-primary-dark/95 backdrop-blur-md rounded-xl px-2 mt-2">
+          <div className="flex flex-col gap-0.5 pt-1.5 bg-primary-dark/95 backdrop-blur-md rounded-xl px-2 mt-1">
             {siteConfig.navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 text-left font-medium"
+                className="px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 text-left font-medium text-sm"
               >
                 {item.label}
               </button>
             ))}
             <button
               onClick={() => scrollToSection('contact')}
-              className="mt-2 mb-2 px-5 py-3 bg-primary hover:bg-primary-light text-white rounded-full transition-all duration-200 font-semibold text-center"
+              className="mt-1.5 mb-1.5 px-4 py-2 bg-primary hover:bg-primary-light text-white rounded-full transition-all duration-200 font-semibold text-center text-sm"
             >
               Contact & Book Now
             </button>
