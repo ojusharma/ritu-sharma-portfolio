@@ -3,8 +3,6 @@ import { useContent } from '../context/ContentContext';
 
 export default function Footer() {
   const { siteConfig, contactInfo } = useContent();
-  const currentYear = new Date().getFullYear();
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
