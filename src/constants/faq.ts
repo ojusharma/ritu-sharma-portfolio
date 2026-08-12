@@ -41,12 +41,6 @@ export const FAQ_CONTENT = {
         "That's why we have check-ins every 15 days! Your plan isn't set in stone. We adjust it based on your progress, preferences, and lifestyle. This is YOUR plan, and it evolves with you.",
     },
     {
-      id: 6,
-      question: "Why should I pay ₹1,200 for a consultation first?",
-      answer:
-        "Think of it as a test drive. You get to see my approach, ask all your questions, and decide if this is right for you, with zero pressure. Plus, if you continue with the meal plan, this amount gets fully credited!",
-    },
-    {
       id: 7,
       question: "I've tried everything and nothing works. Why will this be different?",
       answer:

@@ -21,11 +21,7 @@ export const HERO_CONTENT = {
     text: "Contact & Book Now",
     link: "#contact",
   },
-  secondaryCTA: {
-    text: "Plans & Fees",
-    link: "#fees",
-  },
-  
+
   // Hero image
   image: "/ritu-sharma.jpeg",
   imageAlt: "Ritu Sharma",

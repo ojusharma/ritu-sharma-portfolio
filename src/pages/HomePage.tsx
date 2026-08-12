@@ -2,7 +2,7 @@ import {
   Navbar,
   Hero,
   Certifications,
-  Fees,
+  Book,
   Testimonials,
   FAQ,
   Contact,
@@ -20,7 +20,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <Certifications />
-        <Fees />
+        <Book />
         <Testimonials />
         <Contact />
         <FAQ />
