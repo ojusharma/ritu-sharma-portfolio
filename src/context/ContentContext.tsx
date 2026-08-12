@@ -1,14 +1,13 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { createContext, useContext, ReactNode } from 'react';
 import {
   SITE_CONFIG,
   CONTACT_INFO,
   HERO_CONTENT,
   CERTIFICATIONS_CONTENT,
-  FEES_CONTENT,
   FAQ_CONTENT,
   CONTACT_CONTENT,
   TESTIMONIALS_CONTENT,
+  BOOK_CONTENT,
 } from '../constants';
 
 // Type definitions based on your constants
@@ -40,7 +39,6 @@ export interface HeroContent {
   tagline: string;
   description: string;
   primaryCTA: { text: string; link: string };
-  secondaryCTA: { text: string; link: string };
   image: string;
   imageAlt: string;
   highlights: { value: string; label: string }[];
@@ -58,24 +56,6 @@ export interface CertificationsContent {
   sectionTitle: string;
   sectionSubtitle: string;
   certifications: Certification[];
-}
-
-export interface Service {
-  id: number;
-  name: string;
-  price: string;
-  duration: string;
-  description: string;
-  features: string[];
-  popular: boolean;
-}
-
-export interface FeesContent {
-  sectionTitle: string;
-  sectionSubtitle: string;
-  currency: string;
-  services: Service[];
-  note: string;
 }
 
 export interface FAQ {
@@ -117,131 +97,60 @@ export interface TestimonialsContent {
   testimonials: Testimonial[];
 }
 
+export interface BookBuyLink {
+  platform: string;
+  link: string;
+}
+
+export interface BookContent {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  title: string;
+  description: string;
+  publisher: string;
+  isbn: string;
+  pages: number;
+  language: string;
+  category: string;
+  coverImage: string;
+  coverAlt: string;
+  paperbackPrice: string;
+  ebookPrice: string;
+  buyLinks: BookBuyLink[];
+}
+
 export interface ContentState {
   siteConfig: SiteConfig;
   contactInfo: ContactInfo;
   heroContent: HeroContent;
   certificationsContent: CertificationsContent;
-  feesContent: FeesContent;
   faqContent: FAQContent;
   contactContent: ContactContent;
   testimonialsContent: TestimonialsContent;
-  isLoading: boolean;
-  error: string | null;
+  bookContent: BookContent;
 }
 
-interface ContentContextValue extends ContentState {
-  refreshContent: () => Promise<void>;
-  updateContent: (key: string, data: unknown) => Promise<boolean>;
-}
-
-const defaultContent: ContentState = {
+const content: ContentState = {
   siteConfig: SITE_CONFIG,
   contactInfo: CONTACT_INFO,
   heroContent: HERO_CONTENT,
   certificationsContent: CERTIFICATIONS_CONTENT,
-  feesContent: FEES_CONTENT,
   faqContent: FAQ_CONTENT,
   contactContent: CONTACT_CONTENT,
   testimonialsContent: TESTIMONIALS_CONTENT,
-  isLoading: true,
-  error: null,
+  bookContent: BOOK_CONTENT,
 };
 
-const ContentContext = createContext<ContentContextValue | undefined>(undefined);
+const ContentContext = createContext<ContentState>(content);
 
 export function ContentProvider({ children }: { children: ReactNode }) {
-  const [content, setContent] = useState<ContentState>(defaultContent);
-
-  const fetchContent = async () => {
-    // If Supabase isn't configured, use defaults
-    if (!isSupabaseConfigured() || !supabase) {
-      setContent((prev) => ({ ...prev, isLoading: false }));
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('site_content')
-        .select('key, content');
-
-      if (error) throw error;
-
-      if (data && data.length > 0) {
-        const contentMap: Record<string, unknown> = {};
-        data.forEach((row) => {
-          contentMap[row.key] = row.content;
-        });
-
-        setContent({
-          siteConfig: SITE_CONFIG, // Always from constants file
-          heroContent: HERO_CONTENT, // Always from constants file
-          contactInfo: CONTACT_INFO, // Always from constants file
-          contactContent: CONTACT_CONTENT, // Always from constants file
-          certificationsContent: (contentMap['certifications'] as CertificationsContent) || CERTIFICATIONS_CONTENT,
-          feesContent: (contentMap['fees'] as FeesContent) || FEES_CONTENT,
-          faqContent: (contentMap['faq'] as FAQContent) || FAQ_CONTENT,
-          testimonialsContent: (contentMap['testimonials'] as TestimonialsContent) || TESTIMONIALS_CONTENT,
-          isLoading: false,
-          error: null,
-        });
-      } else {
-        // No data in database, use defaults
-        setContent((prev) => ({ ...prev, isLoading: false }));
-      }
-    } catch (err) {
-      console.error('Error fetching content:', err);
-      setContent((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: 'Failed to load content from database',
-      }));
-    }
-  };
-
-  const updateContent = async (key: string, data: unknown): Promise<boolean> => {
-    if (!isSupabaseConfigured() || !supabase) {
-      console.error('Supabase not configured');
-      return false;
-    }
-
-    try {
-      const { error } = await supabase
-        .from('site_content')
-        .upsert({ key, content: data, updated_at: new Date().toISOString() }, { onConflict: 'key' });
-
-      if (error) throw error;
-
-      // Refresh content after update
-      await fetchContent();
-      return true;
-    } catch (err) {
-      console.error('Error updating content:', err);
-      return false;
-    }
-  };
-
-  useEffect(() => {
-    fetchContent();
-  }, []);
-
   return (
-    <ContentContext.Provider
-      value={{
-        ...content,
-        refreshContent: fetchContent,
-        updateContent,
-      }}
-    >
+    <ContentContext.Provider value={content}>
       {children}
     </ContentContext.Provider>
   );
 }
 
 export function useContent() {
-  const context = useContext(ContentContext);
-  if (context === undefined) {
-    throw new Error('useContent must be used within a ContentProvider');
-  }
-  return context;
+  return useContext(ContentContext);
 }

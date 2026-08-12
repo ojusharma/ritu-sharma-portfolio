@@ -2,26 +2,17 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ContentProvider } from './context/ContentContext';
-import { AuthProvider } from './context/AuthContext';
-import { HomePage, AdminPage } from './pages';
-import ProtectedRoute from './components/ProtectedRoute';
+import { HomePage } from './pages';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ContentProvider>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminPage />
-              </ProtectedRoute>
-            } />
-          </Routes>
-        </ContentProvider>
-      </AuthProvider>
+      <ContentProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </ContentProvider>
     </BrowserRouter>
   </StrictMode>
 );
