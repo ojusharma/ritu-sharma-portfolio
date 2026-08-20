@@ -2,6 +2,7 @@
 export { default as Hero } from './sections/Hero';
 export { default as Certifications } from './sections/Certifications';
 export { default as Book } from './sections/Book';
+export { default as Instagram } from './sections/Instagram';
 export { default as Testimonials } from './sections/Testimonials';
 export { default as FAQ } from './sections/FAQ';
 export { default as Contact } from './sections/Contact';
