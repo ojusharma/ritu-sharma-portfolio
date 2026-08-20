@@ -6,3 +6,4 @@ export { TESTIMONIALS_CONTENT } from './testimonials';
 export { FAQ_CONTENT } from './faq';
 export { CONTACT_CONTENT } from './contact';
 export { BOOK_CONTENT } from './book';
+export { INSTAGRAM_CONTENT } from './instagram';

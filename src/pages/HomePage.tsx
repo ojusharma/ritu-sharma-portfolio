@@ -3,6 +3,7 @@ import {
   Hero,
   Certifications,
   Book,
+  Instagram,
   Testimonials,
   FAQ,
   Contact,
@@ -21,6 +22,7 @@ export default function HomePage() {
         <Hero />
         <Certifications />
         <Book />
+        <Instagram />
         <Testimonials />
         <Contact />
         <FAQ />

@@ -8,6 +8,7 @@ import {
   CONTACT_CONTENT,
   TESTIMONIALS_CONTENT,
   BOOK_CONTENT,
+  INSTAGRAM_CONTENT,
 } from '../constants';
 
 // Type definitions based on your constants
@@ -119,6 +120,14 @@ export interface BookContent {
   buyLinks: BookBuyLink[];
 }
 
+export interface InstagramContent {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  handle: string;
+  profileLink: string;
+  embedUrl: string;
+}
+
 export interface ContentState {
   siteConfig: SiteConfig;
   contactInfo: ContactInfo;
@@ -128,6 +137,7 @@ export interface ContentState {
   contactContent: ContactContent;
   testimonialsContent: TestimonialsContent;
   bookContent: BookContent;
+  instagramContent: InstagramContent;
 }
 
 const content: ContentState = {
@@ -139,6 +149,7 @@ const content: ContentState = {
   contactContent: CONTACT_CONTENT,
   testimonialsContent: TESTIMONIALS_CONTENT,
   bookContent: BOOK_CONTENT,
+  instagramContent: INSTAGRAM_CONTENT,
 };
 
 const ContentContext = createContext<ContentState>(content);
