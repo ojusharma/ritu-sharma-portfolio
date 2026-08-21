@@ -10,7 +10,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <ContentProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/:section?" element={<HomePage />} />
         </Routes>
       </ContentProvider>
     </BrowserRouter>

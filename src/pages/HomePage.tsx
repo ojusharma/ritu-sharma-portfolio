@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   Navbar,
   Hero,
@@ -14,13 +14,16 @@ import {
 } from '../components';
 
 export default function HomePage() {
-  const { hash } = useLocation();
+  const { section } = useParams();
 
   useEffect(() => {
-    if (!hash) return;
-    const element = document.getElementById(hash.slice(1));
+    if (!section) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const element = document.getElementById(section);
     element?.scrollIntoView({ behavior: 'smooth' });
-  }, [hash]);
+  }, [section]);
 
   return (
     <div className="min-h-screen">

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Heart, Instagram, Mail, MapPin, Phone } from 'lucide-react';
 import { useContent } from '../context/ContentContext';
 
@@ -24,13 +25,13 @@ export default function Footer() {
             <h4 className="font-semibold text-sm sm:text-lg">Quick Links</h4>
             <div className="flex flex-col gap-2">
               {siteConfig.navigation.map((item) => (
-                <a
+                <Link
                   key={item.id}
-                  href={`#${item.id}`}
+                  to={`/${item.id}`}
                   className="text-white/70 hover:text-white transition-colors text-sm text-left w-fit"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
