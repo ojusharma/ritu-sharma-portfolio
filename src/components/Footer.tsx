@@ -3,12 +3,6 @@ import { useContent } from '../context/ContentContext';
 
 export default function Footer() {
   const { siteConfig, contactInfo } = useContent();
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className="bg-primary-dark text-white">
@@ -30,13 +24,13 @@ export default function Footer() {
             <h4 className="font-semibold text-sm sm:text-lg">Quick Links</h4>
             <div className="flex flex-col gap-2">
               {siteConfig.navigation.map((item) => (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  href={`#${item.id}`}
                   className="text-white/70 hover:text-white transition-colors text-sm text-left w-fit"
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
             </div>
           </div>
