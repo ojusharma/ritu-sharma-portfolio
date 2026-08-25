@@ -17,6 +17,48 @@ import { createPageTexture } from './pageTexture';
  *  still making sure no two adjacent pages are identical. */
 const PAGE_VARIANTS = 3;
 
+/** Used only if the artwork cannot be sampled -- the current cover's background. */
+const COVER_YELLOW_FALLBACK = '#FFC20E';
+
+/**
+ * Reads the cover's background colour out of the artwork itself, so the back and spine
+ * wrap in the real printed colour rather than a hand-copied hex that drifts if the
+ * cover is ever replaced. Averages a strip inset from the top-left, which is flat
+ * background on this cover and on any plausible replacement.
+ */
+function sampleArtworkColor(image: CanvasImageSource | undefined): string {
+  try {
+    if (!image) return COVER_YELLOW_FALLBACK;
+    const { width, height } = image as { width: number; height: number };
+    if (!width || !height) return COVER_YELLOW_FALLBACK;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 1;
+    canvas.height = 1;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return COVER_YELLOW_FALLBACK;
+
+    // Downsampling the strip to a single pixel averages it for free.
+    ctx.drawImage(
+      image,
+      Math.round(width * 0.02),
+      Math.round(height * 0.015),
+      Math.round(width * 0.06),
+      Math.round(height * 0.02),
+      0,
+      0,
+      1,
+      1
+    );
+
+    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+    return `rgb(${r}, ${g}, ${b})`;
+  } catch {
+    // Tainted canvas or an unsupported source type -- the fallback is close enough.
+    return COVER_YELLOW_FALLBACK;
+  }
+}
+
 /** Palette lifted from tailwind.config.js so the 3D book belongs to the same site. */
 const COLOR = {
   primaryDark: '#1B211A',
@@ -61,6 +103,12 @@ export default function BookScene({
   const { viewport, size, gl } = useThree();
 
   const texture = useTexture(coverImage);
+
+  // useTexture suspends until decode, so the image is ready by the time this runs.
+  const wrapColor = useMemo(
+    () => sampleArtworkColor(texture.image as CanvasImageSource | undefined),
+    [texture]
+  );
 
   const pageTextures = useMemo(
     () => Array.from({ length: PAGE_VARIANTS }, (_, i) => createPageTexture(i)),
@@ -234,20 +282,17 @@ export default function BookScene({
 
   return (
     <group ref={rootRef}>
-      {/* Back cover */}
+      {/* Back cover. Sampled from the artwork so it matches the printed front, which
+          matters here because the spin shows both within the same second. */}
       <mesh position={[0, 0, -depth / 2]}>
         <boxGeometry args={[width, height, coverThickness]} />
-        <meshPhysicalMaterial
-          color={COLOR.primaryDark}
-          roughness={0.55}
-          clearcoat={0.4}
-        />
+        <meshPhysicalMaterial color={wrapColor} roughness={0.55} clearcoat={0.4} />
       </mesh>
 
-      {/* Spine */}
+      {/* Spine. Part of the same wrap as the front and back on a real paperback. */}
       <mesh position={[halfSpine, 0, 0]}>
         <boxGeometry args={[coverThickness, height, depth]} />
-        <meshPhysicalMaterial color={COLOR.primary} roughness={0.5} clearcoat={0.5} />
+        <meshPhysicalMaterial color={wrapColor} roughness={0.5} clearcoat={0.5} />
       </mesh>
 
       {/* Page block. Thinner than the cavity and pushed toward the back cover so the
