@@ -17,50 +17,29 @@ export default function Instagram() {
           </p>
         </div>
 
-        {/* Same widget, sized differently per breakpoint so it reflows its own grid columns.
-            snapwidget.js (loaded in index.html) finds .snapwidget-widget iframes and auto-resizes their height. */}
+        {/* Single widget instance; container width scales per breakpoint so it reflows its own grid columns.
+            snapwidget.js (loaded in index.html) finds .snapwidget-widget iframes and auto-resizes their height.
+            Must be a single iframe (not duplicated per breakpoint) — snapwidget.js matches resize
+            postMessages back to iframes by src, so duplicate iframes with the same src confuse it. */}
         {instagramContent.embedUrl && (
-          <>
-            {/* Desktop: wide container -> widget shows more columns */}
-            <div className="hidden md:block relative max-w-5xl mx-auto mb-10">
-              <iframe
-                src={instagramContent.embedUrl}
-                className="snapwidget-widget w-full"
-                allowTransparency
-                frameBorder="0"
-                scrolling="no"
-                style={{ border: 'none', overflow: 'hidden', width: '100%', pointerEvents: 'none' }}
-                title="Posts from Instagram"
-              />
-              <a
-                href={instagramContent.profileLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0"
-                aria-label={`View ${instagramContent.handle} on Instagram`}
-              />
-            </div>
-
-            {/* Mobile: narrow container -> widget shows fewer columns */}
-            <div className="md:hidden relative max-w-md mx-auto mb-10">
-              <iframe
-                src={instagramContent.embedUrl}
-                className="snapwidget-widget w-full"
-                allowTransparency
-                frameBorder="0"
-                scrolling="no"
-                style={{ border: 'none', overflow: 'hidden', width: '100%', pointerEvents: 'none' }}
-                title="Posts from Instagram"
-              />
-              <a
-                href={instagramContent.profileLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute inset-0"
-                aria-label={`View ${instagramContent.handle} on Instagram`}
-              />
-            </div>
-          </>
+          <div className="relative max-w-md md:max-w-5xl mx-auto mb-10">
+            <iframe
+              src={instagramContent.embedUrl}
+              className="snapwidget-widget w-full"
+              allowTransparency
+              frameBorder="0"
+              scrolling="no"
+              style={{ border: 'none', overflow: 'hidden', width: '100%', pointerEvents: 'none' }}
+              title="Posts from Instagram"
+            />
+            <a
+              href={instagramContent.profileLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0"
+              aria-label={`View ${instagramContent.handle} on Instagram`}
+            />
+          </div>
         )}
 
         {/* Follow CTA */}

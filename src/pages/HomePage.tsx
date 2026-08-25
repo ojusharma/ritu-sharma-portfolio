@@ -35,8 +35,8 @@ export default function HomePage() {
         <Hero />
         <Certifications />
         <Book />
-        <Instagram />
         <Testimonials />
+        <Instagram />
         <Contact />
         <FAQ />
       </main>

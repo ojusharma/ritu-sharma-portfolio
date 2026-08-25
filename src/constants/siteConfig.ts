@@ -15,12 +15,13 @@ export const SITE_CONFIG = {
   navigation: [
     { id: "certifications", label: "Certifications" },
     { id: "book", label: "My Book" },
+    { id: "testimonials", label: "Testimonials" },
     { id: "faq", label: "FAQ" },
   ],
 
   // Feature flags
   features: {
-    showTestimonials: false, // Set to true to show testimonials section
+    showTestimonials: true, // Set to true to show testimonials section
     showWhatsAppButton: true,
   },
 };
