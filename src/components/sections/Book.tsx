@@ -1,4 +1,23 @@
+import { Suspense, lazy, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { useContent } from '../../context/ContentContext';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { useScrollLock } from '../book3d/useScrollLock';
+import { captureCover, type CoverSnapshot } from '../book3d/coverSnapshot';
+import BookErrorBoundary from '../book3d/BookErrorBoundary';
+
+const BookExperience = lazy(() => import('../book3d/BookExperience'));
+
+/** `idle` -> `preloading` (image still visible) -> `running` (3D has the stage). */
+type Phase = 'idle' | 'preloading' | 'running';
+
+function supportsWebGL(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    return Boolean(window.WebGLRenderingContext && canvas.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
 
 export default function Book() {
   const { bookContent } = useContent();
@@ -10,6 +29,41 @@ export default function Book() {
   const googlePlayLink = bookContent.buyLinks.find(
     (l) => l.platform === 'Google Play'
   )?.link ?? bookContent.buyLinks[0].link;
+
+  const coverRef = useRef<HTMLImageElement>(null);
+  const [phase, setPhase] = useState<Phase>('idle');
+  const [snapshot, setSnapshot] = useState<CoverSnapshot | null>(null);
+  const [rewinding, setRewinding] = useState(false);
+
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const canAnimate = !prefersReducedMotion;
+
+  // Locked before the cover is measured, so removing the scrollbar cannot shift the
+  // rect out from under the measurement.
+  useScrollLock(phase !== 'idle');
+
+  useLayoutEffect(() => {
+    if (phase === 'preloading' && !snapshot && coverRef.current) {
+      setSnapshot(captureCover(coverRef.current));
+    }
+  }, [phase, snapshot]);
+
+  // Warm the chunk on hover so the click usually finds it already resolved. The
+  // import promise is cached, so repeated hovers cost nothing.
+  const warm = useCallback(() => {
+    if (canAnimate) void import('../book3d/BookExperience');
+  }, [canAnimate]);
+
+  const launch = useCallback(() => {
+    if (!canAnimate || phase !== 'idle' || !supportsWebGL()) return;
+    setPhase('preloading');
+  }, [canAnimate, phase]);
+
+  const close = useCallback(() => {
+    setPhase('idle');
+    setSnapshot(null);
+    setRewinding(false);
+  }, []);
 
   return (
     <section id="book" className="py-14 md:py-28 bg-gradient-to-br from-cream/20 to-white">
@@ -28,14 +82,27 @@ export default function Book() {
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 max-w-5xl mx-auto">
           {/* Book Cover */}
           <div className="flex-shrink-0 flex justify-center">
-            <div className="relative">
+            <button
+              type="button"
+              disabled={!canAnimate}
+              onClick={launch}
+              onPointerEnter={warm}
+              aria-label={canAnimate ? `View ${bookContent.title} in 3D` : undefined}
+              // touch-manipulation suppresses the ~300ms tap delay and double-tap zoom,
+              // so the sequence starts the instant a finger lands.
+              className="relative rounded-xl touch-manipulation enabled:cursor-pointer disabled:cursor-default"
+            >
               <div className="absolute inset-0 bg-primary/10 rounded-xl blur-2xl scale-105" />
               <img
+                ref={coverRef}
                 src={bookContent.coverImage}
                 alt={bookContent.coverAlt}
+                // Kept in flow at zero opacity rather than removed: unmounting it would
+                // reflow the section and move the target the book returns to.
+                style={{ opacity: phase === 'running' ? 0 : 1 }}
                 className="relative w-52 sm:w-64 md:w-72 rounded-xl shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-500"
               />
-            </div>
+            </button>
           </div>
 
           {/* Book Details */}
@@ -92,6 +159,22 @@ export default function Book() {
           </div>
         </div>
       </div>
+
+      {snapshot && (
+        <BookErrorBoundary onError={close}>
+          <Suspense fallback={null}>
+            <BookExperience
+              snapshot={snapshot}
+              coverImage={bookContent.coverImage}
+              running={phase === 'running'}
+              rewinding={rewinding}
+              onReady={() => setPhase('running')}
+              onFinished={close}
+              onDismiss={() => setRewinding(true)}
+            />
+          </Suspense>
+        </BookErrorBoundary>
+      )}
     </section>
   );
 }

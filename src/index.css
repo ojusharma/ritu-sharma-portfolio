@@ -23,6 +23,10 @@
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+  /* Permanently reserve the scrollbar gutter so locking scroll for the 3D book
+     reveal cannot shift the page sideways. useScrollLock pads the body as a
+     fallback for browsers without this property. */
+  scrollbar-gutter: stable;
 }
 
 /* Offset anchored sections so the fixed navbar doesn't cover their heading */
