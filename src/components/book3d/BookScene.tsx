@@ -250,9 +250,11 @@ export default function BookScene({
         <meshPhysicalMaterial color={COLOR.primary} roughness={0.5} clearcoat={0.5} />
       </mesh>
 
-      {/* Page block */}
-      <mesh position={[coverThickness, 0, 0]}>
-        <boxGeometry args={[width * 0.97, height * 0.96, depth * 0.82]} />
+      {/* Page block. Thinner than the cavity and pushed toward the back cover so the
+          loose pages below can sit clear of it -- when the two overlap, every pixel
+          where they meet is a coin toss for the depth test and the pages flicker. */}
+      <mesh position={[coverThickness, 0, -depth * 0.12]}>
+        <boxGeometry args={[width * 0.97, height * 0.96, depth * 0.5]} />
         <meshStandardMaterial color={COLOR.cream} roughness={0.9} />
       </mesh>
 
@@ -260,7 +262,13 @@ export default function BookScene({
       {Array.from({ length: PAGE_COUNT }).map((_, i) => (
         <group
           key={i}
-          position={[halfSpine, 0, lerp(-depth * 0.3, depth * 0.3, i / (PAGE_COUNT - 1))]}
+          // Stacked in the gap between the block's front face (-depth*0.37 .. depth*0.13)
+          // and the front cover (depth*0.5), so nothing ever intersects.
+          position={[
+            halfSpine,
+            0,
+            lerp(depth * 0.2, depth * 0.42, i / (PAGE_COUNT - 1)),
+          ]}
           ref={(node) => {
             if (node) pageRefs.current[i] = node;
           }}

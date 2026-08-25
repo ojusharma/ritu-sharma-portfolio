@@ -131,7 +131,11 @@ export default function BookExperience({
           // square of this number, so 2 -> 1.5 removes ~44% of the GPU work while
           // staying sharp enough for a 5-second flourish.
           dpr={[1, 1.5]}
-          camera={{ fov: 45, position: [0, 0, 8] }}
+          // near/far are deliberately tight. The default 0.1..1000 range wastes almost
+          // all depth precision on empty space for a scene that lives between z=0 and
+          // z=2, which shows up as z-fighting on mobile GPUs that use a shallower
+          // depth buffer than desktop.
+          camera={{ fov: 45, position: [0, 0, 8], near: 1, far: 50 }}
         >
           <ambientLight intensity={0.85} />
           <directionalLight position={[3, 4, 6]} intensity={2.4} />
